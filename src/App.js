@@ -1,28 +1,38 @@
-import React,{useState, useEffect} from 'react';
+import React, { Fragment } from 'react';
+import {Provider} from "./util/Context";
 import './App.css';
-import axios from "axios";
-
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
+import Home from "./pages/Home";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 
 
 function App() {
-  const [welcomeMessage, setWelcomeMessage] = useState("This is from react")
-
-
-  useEffect(() => {
-    axios.get("http://localhost:5000/Home").then(
-      response=>{
-        setWelcomeMessage(response.data)
-      }
-    )
-  }, [])
-  
-
   return (
     <div className="App">
-      {welcomeMessage}
+      <Provider>
+        <Content/>
+      </Provider>
     </div>
   );
+}
+
+function Content(){
+  return(
+    <Fragment>
+      <Header/>
+      <div className ="page-container">
+        <Router>
+          <Switch>
+            <Route path = "/" exact component={Home}/>
+          </Switch>
+        </Router>
+      </div>
+      <Footer/>
+    </Fragment>
+  )
+
 }
 
 export default App;
