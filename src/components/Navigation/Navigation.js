@@ -16,6 +16,20 @@ export default function Navigation() {
                     </NavLink>
                 </div>
             </li>
+            <li>
+                <div className="link-wrapper">
+                    <NavLink to={"/login"} exact>
+                        Login
+                    </NavLink>
+                </div>
+            </li>
+            <li>
+                <div className="link-wrapper">
+                    <NavLink to={"/register"} exact>
+                        Register
+                    </NavLink>
+                </div>
+            </li>
         </ul>
         </nav>
     );

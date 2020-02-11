@@ -5,6 +5,8 @@ import {Container} from "@material-ui/core"
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login"
+import Register from "./pages/Register/Register"
 import NotFound from "./pages/errorPages/NotFound/NotFound";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -25,6 +27,8 @@ function Content() {
             <Container>
                 <Switch>
                     <Route path="/" exact component={Home} />
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/register" exact component={Register} />
                     <Route path="*" component={NotFound} />
                 </Switch>
             </Container>
