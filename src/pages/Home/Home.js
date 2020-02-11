@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux';
-import {getData} from "../store/actions/repositoryActions"
+import {getData} from "../../store/actions/repositoryActions"
 
 export default function Home(props) {
     const dispatch= useDispatch()
