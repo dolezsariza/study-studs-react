@@ -6,11 +6,11 @@ export default function Navigation() {
 
     return (
         <nav>
-            <div class="logo">
+            <div className="logo">
             </div>
-            <ul class="nav-links">
+            <ul className="nav-links">
             <li>
-                <div class="link-wrapper">
+                <div className="link-wrapper">
                     <NavLink to={"/"} exact>
                         Home
                     </NavLink>
