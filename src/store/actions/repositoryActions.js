@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios/axios';
 
+
 const getDataSuccess = (data) => {
     return {
         type: actionTypes.GET_DATA_SUCCESS,
@@ -9,12 +10,15 @@ const getDataSuccess = (data) => {
 }
  
 export const getData = (url, props) => {
+    console.log("Get Request")
     return (dispatch) => {
         axios.get(url)
         .then(response => {
+            console.log("Response :",response)
             dispatch(getDataSuccess(response.data));
         })
         .catch(error => {
+            console.log(error)
             //TODO: handle the error when implemented
         })
     }

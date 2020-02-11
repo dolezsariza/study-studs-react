@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
  
+//global state
 const initialState = {
     data: null,
     showSuccessModal: false
