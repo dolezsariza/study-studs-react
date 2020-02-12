@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 //global state
 const initialState = {
     data: null,
+    response: null,
     showSuccessModal: false
 }
 
@@ -16,6 +17,7 @@ const executeGetDataSuccess = (state, action) => {
 const executePostDataSuccess = (state, action) => {
     return {
         ...state,
+        response: action.response,
         showSuccessModal: true
     }
 }
@@ -23,6 +25,7 @@ const executePostDataSuccess = (state, action) => {
 const executePutDataSuccess = (state, action) => {
     return {
         ...state,
+        response: action.response,
         showSuccessModal: true
     }
 }
@@ -30,6 +33,7 @@ const executePutDataSuccess = (state, action) => {
 const executeDeleteDataSuccess = (state, action) => {
     return {
         ...state,
+        response: action.response,
         showSuccessModal: true
     }
 }

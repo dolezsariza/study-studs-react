@@ -4,15 +4,17 @@ import { getData } from "../../store/actions/repositoryActions";
 
 export default function Home(props) {
     const dispatch = useDispatch();
-    let welcomeMessage = useSelector(state => state.data);
+    const welcomeMessage = useSelector(state=> state.repositoryReducer.data);
+    const loggedIn = useSelector(state => state.loggedInReducer);
 
     useEffect(() => {
         dispatch(getData("/Home", props));
     });
 
     return (
-        <Fragment>
+        loggedIn?
             <p style={{textAlign:"center"}}>{welcomeMessage}</p>
-        </Fragment>
+        :
+        <p style={{textAlign:"center"}}>Please login!!!</p>
     );
 }

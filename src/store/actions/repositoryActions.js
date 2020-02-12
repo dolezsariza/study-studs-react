@@ -14,7 +14,6 @@ export const getData = (url, props) => {
     return (dispatch) => {
         axios.get(url)
         .then(response => {
-            console.log("Response :",response)
             dispatch(getDataSuccess(response.data));
         })
         .catch(error => {

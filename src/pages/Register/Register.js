@@ -3,6 +3,7 @@ import { TextField, Box, Button } from "@material-ui/core";
 import "../Login/Login.css";
 import {useDispatch, useSelector } from "react-redux"
 import {postData } from "../../store/actions/repositoryActions";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 export default function Register(props) {
 
@@ -11,13 +12,13 @@ export default function Register(props) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    const response = useSelector(state => state);
+    const response = useSelector(state => state.repositoryReducer.data);
 
     const tryRegister = ()=>{
         dispatch(postData("/register", {
-            userName: userName,
-            password: password,
-            email: email
+            userName,
+            password,
+            email
         },props))
     }
 
@@ -27,6 +28,9 @@ export default function Register(props) {
 
     return (
         <div className="page-container">
+             <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+            </Alert>
             <form noValidate autoComplete="off">
                 <Box className="textfield-container">
                     <TextField
