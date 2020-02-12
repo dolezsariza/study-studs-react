@@ -12,7 +12,7 @@ export default function Register(props) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    const response = useSelector(state => state.repositoryReducer.data);
+    const response = useSelector(state => state.repository.data);
 
     const tryRegister = ()=>{
         dispatch(postData("/register", {

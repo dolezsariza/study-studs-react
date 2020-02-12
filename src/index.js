@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import repositoryReducer from './store/reducers/repositoryReducer';
+import errorHandlerReducer from './store/reducers/errorHandlerReducer';
 import loggedInReducer from "./store/reducers/loggedInReducer";
 import { Provider } from 'react-redux';
 import { createStore,combineReducers, applyMiddleware , compose} from 'redux';
@@ -13,8 +14,9 @@ import thunk from 'redux-thunk';
 
 
 const allReducers = combineReducers({
-    repositoryReducer,
-    loggedInReducer
+    repository: repositoryReducer,
+    errorHandler: errorHandlerReducer,
+    loggedIn: loggedInReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

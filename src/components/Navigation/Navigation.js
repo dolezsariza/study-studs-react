@@ -1,8 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {useSelector} from "redux";
 import "./Navigation.css";
 
 export default function Navigation() {
+    const loggedIn = useSelector(state => state.loggedIn);
 
     return (
         <nav>

@@ -11,7 +11,7 @@ export default function Login(props) {
     const [password, setPassword] = useState();
     const [errorMessage, setErrrorMessage] = useState();
 
-    const response = useSelector(state => state.repositoryReducer.response);
+    const response = useSelector(state => state.repository.response);
 
     const tryLogin = () => {
         dispatch(

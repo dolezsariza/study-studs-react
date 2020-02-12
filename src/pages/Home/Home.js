@@ -4,8 +4,8 @@ import { getData } from "../../store/actions/repositoryActions";
 
 export default function Home(props) {
     const dispatch = useDispatch();
-    const welcomeMessage = useSelector(state=> state.repositoryReducer.data);
-    const loggedIn = useSelector(state => state.loggedInReducer);
+    const welcomeMessage = useSelector(state=> state.repository.data);
+    const loggedIn = useSelector(state => state.loggedIn);
 
     useEffect(() => {
         dispatch(getData("/Home", props));
