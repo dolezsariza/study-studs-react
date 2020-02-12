@@ -10,6 +10,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import InternalServer from './pages/errorPages/InternalServer/InternalServer';
 import NotFound from "./pages/errorPages/NotFound/NotFound";
+import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App(props) {
@@ -27,6 +28,7 @@ function Content() {
         <Router>
             <Header />
             <Container>
+                <InfoBox/>
                 <Switch>
                     <Route path="/" exact component={Home} />
                     <Route path="/login" exact component={Login} />

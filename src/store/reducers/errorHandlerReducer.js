@@ -1,7 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
  
 const initialState = {
-    showErrorModal: false,
     errorMessage: ''
 }
  
@@ -18,7 +17,6 @@ const execute500 = (state, action) => {
 const executeOtherError = (state, action) => {
     return {
         ...state,
-        showErrorModal: true,
         errorMessage: action.error.response.data
     };
 }

@@ -1,39 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, Fragment, useEffect, useRef } from "react";
 import { TextField, Box, Button } from "@material-ui/core";
 import "./Login.css";
-import { useDispatch, useSelector } from "react-redux";
+import {  connect } from "react-redux";
 import { postData } from "../../store/actions/repositoryActions";
-import { Alert, AlertTitle } from '@material-ui/lab';
+import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
+import StudentIcon from "../../components/StudentIcon/StudentIcon"
 
-export default function Login(props) {
-    const dispatch = useDispatch();
-    const [userName, setUserName] = useState();
-    const [password, setPassword] = useState();
-    const [errorMessage, setErrrorMessage] = useState();
+function Login(props) {
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const [onPassword, setOnPassword] = useState(false);
 
-    const response = useSelector(state => state.repository.response);
+    const passwordRef = useRef(null);
+    const url = "/Login";
 
     const tryLogin = () => {
-        dispatch(
-            postData(
-                "/login",
-                {
-                    userName: userName,
-                    password: password
-                },
-                props
-            )
+        props.onPostData(
+            url,
+            {
+                userName,
+                password
+            },
+            { ...props }
         );
     };
 
+    const response = props.response;
+    const error = props.error;
+
+
     return (
+        <Fragment>
+        {error?  <InfoBox
+        showError={true}
+        errorMessage={error}
+        />:<Fragment/>}
         <div className="page-container">
-            <Alert severity="error">
-                <AlertTitle>Error</AlertTitle>
-            </Alert>
+            <StudentIcon  onPassword={onPassword} eyeRotation = {userName.length}></StudentIcon>
             <form noValidate autoComplete="off">
                 <Box className="textfield-container">
                     <TextField
+                    onFocus ={()=>setOnPassword(false)}
                         id="username-input"
                         label="User Name"
                         autoComplete="current-username"
@@ -45,6 +52,7 @@ export default function Login(props) {
                 </Box>
                 <Box className="textfield-container">
                     <TextField
+                        onFocus ={()=>setOnPassword(true)}
                         className="textfield"
                         id="password-input"
                         label="Password"
@@ -68,5 +76,21 @@ export default function Login(props) {
                 </Box>
             </form>
         </div>
+        </Fragment>
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        repsonse: state.repository.response,
+        error: state.errorHandler.errorMessage,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onPostData: (url, data, props) => dispatch(postData(url, data, props))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

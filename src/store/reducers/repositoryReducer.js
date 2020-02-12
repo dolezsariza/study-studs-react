@@ -1,42 +1,45 @@
-import * as actionTypes from '../actions/actionTypes';
- 
+import * as actionTypes from "../actions/actionTypes";
+
 //global state
 const initialState = {
     data: null,
-    response: null,
-    showSuccessModal: false
-}
+    response: null
+};
+
+const executeCloseErrorInfo = (state, action) => {
+    return {
+        ...state,
+        errorMessage: ""
+    };
+};
 
 const executeGetDataSuccess = (state, action) => {
     return {
         ...state,
         data: action.data
-    }
-}
- 
+    };
+};
+
 const executePostDataSuccess = (state, action) => {
     return {
         ...state,
-        response: action.response,
-        showSuccessModal: true
-    }
-}
- 
+        response: action.response
+    };
+};
+
 const executePutDataSuccess = (state, action) => {
     return {
         ...state,
-        response: action.response,
-        showSuccessModal: true
-    }
-}
- 
+        response: action.response
+    };
+};
+
 const executeDeleteDataSuccess = (state, action) => {
     return {
         ...state,
-        response: action.response,
-        showSuccessModal: true
-    }
-}
+        response: action.response
+    };
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -48,9 +51,11 @@ const reducer = (state = initialState, action) => {
             return executePutDataSuccess(state, action);
         case actionTypes.DELETE_DATA_SUCCESS:
             return executeDeleteDataSuccess(state, action);
+        case actionTypes.CLOSE_ERROR_INFO:
+            return executeCloseErrorInfo(state, action);
         default:
             return state;
     }
-}
- 
+};
+
 export default reducer;

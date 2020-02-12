@@ -20,6 +20,12 @@ const executeOtherErrorHandler = (error) => {
         error: error
     }
 }
+
+export const closeErrorInfo = () => {
+    return {
+        type: actionTypes.CLOSE_ERROR_INFO
+    }
+}
  
 export const handleHTTPError = (error, props) => {
     if (error.response.status === 404) {

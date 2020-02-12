@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {useSelector} from "redux";
+import {useSelector} from "react-redux";
 import "./Navigation.css";
 
 export default function Navigation() {

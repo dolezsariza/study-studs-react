@@ -10,11 +10,11 @@ const getDataSuccess = data => {
 };
 
 export const getData = (url, props) => {
-    console.log("Get Request");
     return dispatch => {
         axios
             .get(url)
             .then(response => {
+                console.log(response)
                 dispatch(getDataSuccess(response.data));
             })
             .catch(error => {
