@@ -62,6 +62,7 @@ function Register(props) {
                 <form noValidate autoComplete="off">
                     <Box className="textfield-container">
                         <TextField
+                            required
                             id="username-input"
                             label="User Name"
                             autoComplete="current-username"
@@ -73,6 +74,7 @@ function Register(props) {
                     </Box>
                     <Box className="textfield-container">
                         <TextField
+                            required
                             id="email-input"
                             label="Email Address"
                             autoComplete="current-email"
@@ -84,6 +86,7 @@ function Register(props) {
                     </Box>
                     <Box className="textfield-container">
                         <TextField
+                            required
                             className="textfield"
                             id="password-input"
                             label="Password"

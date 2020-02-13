@@ -6,6 +6,7 @@ import { postData } from "../../store/actions/repositoryActions";
 import login from "../../store/actions/logInActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon";
+import {closeErrorInfo} from "../../store/actions/errorHandlerActions";
 
 function Login(props) {
     const [userName, setUserName] = useState("");
@@ -38,6 +39,13 @@ function Login(props) {
         }
     }, [response, props]);
 
+
+    useEffect(() => {
+        if(error){
+            setTimeout(props.onCloseError,3000);
+        }
+    }, [error, props])
+
     return (
         <Fragment>
             {error ? (
@@ -61,6 +69,7 @@ function Login(props) {
                 <form noValidate autoComplete="off">
                     <Box className="textfield-container">
                         <TextField
+                            autoFocus={true}
                             onFocus={() => setOnPassword(false)}
                             id="username-input"
                             label="User Name"
@@ -112,7 +121,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onLogin: () => dispatch(login())
+        onLogin: () => dispatch(login()),
+        onCloseError: () => dispatch(closeErrorInfo())
     };
 };
 
