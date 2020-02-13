@@ -1,10 +1,12 @@
 import React from "react";
 
 export default function StudentIcon(props) {
-    const boyStyle = props.onPassword ? {
-        transition: "transform 1s ease",
-        transform: "translateY(25%)"
-    } : {transition: "transform 1s ease"};
+    const boyStyle = props.onPassword
+        ? {
+              transition: "transform 1s ease",
+              transform: "translateY(25%)"
+          }
+        : { transition: "transform 1s ease" };
     const eyeStyle = {};
     const eyeballStyle = {
         transform: "rotateZ(-" + 200 + props.eyeRotation * 3 + "deg)",
@@ -12,7 +14,7 @@ export default function StudentIcon(props) {
         transformBox: "fill-box"
     };
     const bookStyle = {};
-    const backgroundStyle = props.error==""?{}:{fill: "#e74c3c"};
+    const backgroundStyle = props.error === "" ? {} : { fill: "#e74c3c" };
 
     return (
         <div>
@@ -27,7 +29,7 @@ export default function StudentIcon(props) {
                     <g id="Group">
                         <path
                             id="background"
-                            style = {backgroundStyle}
+                            style={backgroundStyle}
                             d="M512 256C512 337.92 473.52 410.85 413.65 457.71C375.62 487.47 328.97 506.71 278.07 511.06C270.8 511.68 263.44 512 256 512H255.99C248.56 512 241.2 511.68 233.92 511.06C183.01 506.72 136.35 487.47 98.33 457.69C38.47 410.83 0 337.91 0 256C0 114.62 114.62 0 256 0C397.38 0 512 114.62 512 256Z"
                             fill="#ECC32E"
                         />
@@ -110,7 +112,7 @@ export default function StudentIcon(props) {
                             />
                         </g>
                     </g>
-                    <g id="rightEye" style={{...eyeStyle, ...boyStyle}}>
+                    <g id="rightEye" style={{ ...eyeStyle, ...boyStyle }}>
                         <path
                             id="Vector_19"
                             d="M277.256 224.017C277.256 238.416 288.929 250.089 303.328 250.089C317.727 250.089 329.4 238.416 329.4 224.017"
@@ -134,7 +136,7 @@ export default function StudentIcon(props) {
                             fill="white"
                         />
                     </g>
-                    <g id="leftEye" style={{...eyeStyle, ...boyStyle}}>
+                    <g id="leftEye" style={{ ...eyeStyle, ...boyStyle }}>
                         <path
                             id="Vector_23"
                             d="M182.59 224.017C182.59 238.416 194.263 250.089 208.662 250.089C223.061 250.089 234.734 238.416 234.734 224.017"

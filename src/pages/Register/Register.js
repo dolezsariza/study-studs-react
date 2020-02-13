@@ -29,7 +29,6 @@ function Register(props) {
     const response = props.response;
 
     useEffect(() => {
-        console.log(response)
         if(response){
             if(response.status === 201){
                 console.log("Registered! ")
@@ -43,10 +42,9 @@ function Register(props) {
         if(error){
             setTimeout(props.onCloseError,3000);
         }
-    }, [error])
+    }, [error, props])
 
 
-    console.log(error, response)
 
     return (
         <Fragment>
