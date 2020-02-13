@@ -7,7 +7,7 @@ const ErrorInfo = props => {
             <Fragment>
                 <Alert severity="error">
                     <AlertTitle>{props.HeaderText}</AlertTitle>
-                    {props.BodyText}
+                    {props.bodyText}
                 </Alert>
             </Fragment>
         );

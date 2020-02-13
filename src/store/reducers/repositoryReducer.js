@@ -6,12 +6,6 @@ const initialState = {
     response: null
 };
 
-const executeCloseErrorInfo = (state, action) => {
-    return {
-        ...state,
-        errorMessage: ""
-    };
-};
 
 const executeGetDataSuccess = (state, action) => {
     return {
@@ -51,8 +45,6 @@ const reducer = (state = initialState, action) => {
             return executePutDataSuccess(state, action);
         case actionTypes.DELETE_DATA_SUCCESS:
             return executeDeleteDataSuccess(state, action);
-        case actionTypes.CLOSE_ERROR_INFO:
-            return executeCloseErrorInfo(state, action);
         default:
             return state;
     }

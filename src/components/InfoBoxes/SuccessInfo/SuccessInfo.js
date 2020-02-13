@@ -6,8 +6,8 @@ const SuccessInfo = props => {
         return (
             <Fragment>
                 <Alert severity="success">
-                    <AlertTitle>{props.HeaderText}</AlertTitle>
-                    {props.BodyText}
+                    <AlertTitle>{props.headerText}</AlertTitle>
+                    {props.bodyText}
                 </Alert>
             </Fragment>
         );

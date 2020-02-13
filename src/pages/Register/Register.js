@@ -1,9 +1,10 @@
-import React, { useState , Fragment} from "react";
+import React, { useState , Fragment, useEffect} from "react";
 import { TextField, Box, Button } from "@material-ui/core";
 import "../Login/Login.css";
 import { connect } from "react-redux";
 import { postData } from "../../store/actions/repositoryActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
+import {closeErrorInfo} from "../../store/actions/errorHandlerActions";
 
 
 function Register(props) {
@@ -11,6 +12,7 @@ function Register(props) {
     const [userName, setUserName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [success, setSuccess] = useState(false);
 
     const url = "/register";
 
@@ -26,12 +28,35 @@ function Register(props) {
     const error = props.error;
     const response = props.response;
 
+    useEffect(() => {
+        console.log(response)
+        if(response){
+            if(response.status === 201){
+                console.log("Registered! ")
+                setSuccess(true);
+            }  
+        }
+    }, [response])
+
+
+    useEffect(() => {
+        if(error){
+            setTimeout(props.onCloseError,3000);
+        }
+    }, [error])
+
+
     console.log(error, response)
 
     return (
         <Fragment>
             {error ? (
-                <InfoBox showError={true} errorMessage={error.title} />
+                <InfoBox showError={true} errorMessage={error} />
+            ) : (
+                <Fragment />
+            )}
+            {success ? (
+                <InfoBox showSuccess={true} />
             ) : (
                 <Fragment />
             )}
@@ -90,14 +115,15 @@ function Register(props) {
 
 const mapStateToProps = state => {
     return {
-        repsonse: state.repository.response,
+        response: state.repository.response,
         error: state.errorHandler.errorMessage
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onPostData: (url, data, props) => dispatch(postData(url, data, props))
+        onPostData: (url, data, props) => dispatch(postData(url, data, props)),
+        onCloseError: () => dispatch(closeErrorInfo())
     };
 };
 

@@ -12,7 +12,6 @@ function Login(props) {
     const [password, setPassword] = useState("");
     const [onPassword, setOnPassword] = useState(false);
 
-    const passwordRef = useRef(null);
     const url = "/Login";
 
     const tryLogin = () => {
@@ -33,6 +32,7 @@ function Login(props) {
         if(response){
             if(response.status === 200){
                 console.log("Logged in! ")
+                props.history.push("/");
                 props.onLogin()
             }  
         }
