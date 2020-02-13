@@ -4,7 +4,7 @@ import Navigation from '../components/Navigation/Navigation'
 export default function Header() {
     return (
         <Fragment>
-            <Navigation></Navigation>
+            <Navigation/>
         </Fragment>
     )
 }
