@@ -48,7 +48,7 @@ function Login(props) {
             {if(e.target.id !="password-input")setOnPassword(false)}
         }>
             <div style={{paddingBottom: "20px"}}>
-            <StudentIcon onPassword={onPassword} eyeRotation = {userName.length}></StudentIcon>
+            <StudentIcon error={error} onPassword={onPassword} eyeRotation = {userName.length}></StudentIcon>
             </div>
             <form noValidate autoComplete="off">
                 <Box className="textfield-container">

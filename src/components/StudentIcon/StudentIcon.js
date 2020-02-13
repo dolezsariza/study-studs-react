@@ -12,7 +12,7 @@ export default function StudentIcon(props) {
         transformBox: "fill-box"
     };
     const bookStyle = {};
-    const backgroundStyle = {};
+    const backgroundStyle = props.error==""?{}:{fill: "#e74c3c"};
 
     return (
         <div>
@@ -27,6 +27,7 @@ export default function StudentIcon(props) {
                     <g id="Group">
                         <path
                             id="background"
+                            style = {backgroundStyle}
                             d="M512 256C512 337.92 473.52 410.85 413.65 457.71C375.62 487.47 328.97 506.71 278.07 511.06C270.8 511.68 263.44 512 256 512H255.99C248.56 512 241.2 511.68 233.92 511.06C183.01 506.72 136.35 487.47 98.33 457.69C38.47 410.83 0 337.91 0 256C0 114.62 114.62 0 256 0C397.38 0 512 114.62 512 256Z"
                             fill="#ECC32E"
                         />
@@ -157,7 +158,7 @@ export default function StudentIcon(props) {
                             fill="white"
                         />
                     </g>
-                    <g id="book">
+                    <g id="book" style={bookStyle}>
                         <path
                             id="Vector_27"
                             d="M255.99 339.9V512C248.56 512 241.2 511.68 233.92 511.06C183.01 506.72 136.35 487.47 98.33 457.69V349.62C98.33 332.42 112.27 318.47 129.48 318.47H234.56C246.39 318.47 255.99 328.07 255.99 339.9Z"
