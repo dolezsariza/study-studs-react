@@ -28,7 +28,7 @@ nav{
     width: 40%;
 }
 .nav-links-right{
-    width: 10%;
+    width: 15%;
 }
 
 .nav-links a{
@@ -68,5 +68,15 @@ nav{
     }
     .nav-links-right{
         width:20%;
+    }
+}
+
+
+@media screen and (max-width:980px){
+    .nav-links-left{
+        width:65%;
+    }
+    .nav-links-right{
+        width:25%;
     }
 }

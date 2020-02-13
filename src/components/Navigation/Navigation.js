@@ -26,7 +26,7 @@ export default function Navigation() {
                         <li>
                             <div className="link-wrapper">
                                 <NavLink to={"/login"} exact>
-                                    <Button>
+                                    <Button variant="contained" color="primary">
                                         Login
                                     </Button>
                                 </NavLink>
@@ -35,7 +35,7 @@ export default function Navigation() {
                         <li>
                             <div className="link-wrapper">
                                 <NavLink to={"/register"} exact>
-                                    <Button>
+                                    <Button variant="contained" color="secondary">
                                     Register
                                     </Button>
                                 </NavLink>
