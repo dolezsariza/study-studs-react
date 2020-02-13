@@ -1,6 +1,4 @@
-import React, { useEffect, Fragment } from "react";
-import { useSelector } from "react-redux";
-import { Provider } from "./util/Context";
+import React from "react";
 import "./App.css";
 import { Container } from "@material-ui/core";
 import Header from "./layout/Header";
@@ -16,9 +14,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 function App(props) {
     return (
         <div className="App">
-            <Provider>
                 <Content />
-            </Provider>
         </div>
     );
 }
