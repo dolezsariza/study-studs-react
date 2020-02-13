@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Button } from "@material-ui/core";
 import "./Navigation.css";
 
 export default function Navigation() {
@@ -9,7 +10,7 @@ export default function Navigation() {
     return (
         <nav>
             <div className="logo"></div>
-            <ul className="nav-links">
+            <ul className="nav-links nav-links-left">
                 <li>
                     <div className="link-wrapper">
                         <NavLink to={"/"} exact>
@@ -17,19 +18,26 @@ export default function Navigation() {
                         </NavLink>
                     </div>
                 </li>
-                {!loggedIn ? (
+                
+            </ul>
+            <ul className="nav-links nav-links-right">
+            {!loggedIn ? (
                     <Fragment>
                         <li>
                             <div className="link-wrapper">
                                 <NavLink to={"/login"} exact>
-                                    Login
+                                    <Button>
+                                        Login
+                                    </Button>
                                 </NavLink>
                             </div>
                         </li>
                         <li>
                             <div className="link-wrapper">
                                 <NavLink to={"/register"} exact>
+                                    <Button>
                                     Register
+                                    </Button>
                                 </NavLink>
                             </div>
                         </li>

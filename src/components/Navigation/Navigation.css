@@ -23,7 +23,12 @@ nav{
 .nav-links{
     display:flex;
     justify-content: space-around;
+}
+.nav-links-left{
     width: 40%;
+}
+.nav-links-right{
+    width: 10%;
 }
 
 .nav-links a{
@@ -36,9 +41,11 @@ nav{
     list-style: none;
 }
 
-
 @media screen and (max-width:1300px){
-    .nav-links{
+    .nav-links-left{
         width:60%;
+    }
+    .nav-links-right{
+        width:20%;
     }
 }
