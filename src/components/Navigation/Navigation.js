@@ -18,10 +18,9 @@ export default function Navigation() {
                         </NavLink>
                     </div>
                 </li>
-                
             </ul>
             <ul className="nav-links nav-links-right">
-            {!loggedIn ? (
+                {!loggedIn ? (
                     <Fragment>
                         <li>
                             <div className="link-wrapper">
@@ -35,15 +34,31 @@ export default function Navigation() {
                         <li>
                             <div className="link-wrapper">
                                 <NavLink to={"/register"} exact>
-                                    <Button variant="contained" color="secondary">
-                                    Register
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                    >
+                                        Register
                                     </Button>
                                 </NavLink>
                             </div>
                         </li>
                     </Fragment>
                 ) : (
-                    <Fragment></Fragment>
+                    <Fragment>
+                        <li>
+                            <div className="link-wrapper">
+                                <NavLink to={"/logout"} exact>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                    >
+                                        Logout
+                                    </Button>
+                                </NavLink>
+                            </div>
+                        </li>
+                    </Fragment>
                 )}
             </ul>
         </nav>

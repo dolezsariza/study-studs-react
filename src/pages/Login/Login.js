@@ -3,7 +3,7 @@ import { TextField, Box, Button } from "@material-ui/core";
 import "./Login.css";
 import { connect } from "react-redux";
 import { postData } from "../../store/actions/repositoryActions";
-import login from "../../store/actions/logInActions";
+import {login} from "../../store/actions/logInActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon";
 import {closeErrorInfo} from "../../store/actions/errorHandlerActions";
