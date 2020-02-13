@@ -1,9 +1,20 @@
 
+const initialState = {
+    loggedIn: false
+};
 
-const loggedReducer = (state = false, action) => {
+
+const executeLogin = (state, action) => {
+    return {
+        ...state,
+        loggedIn: true
+    };
+};
+
+const loggedReducer = (state = initialState, action) => {
     switch (action.type) {
         case "SIGN_IN":
-            return true;
+            return executeLogin(state, action);
         case "SIGN_OUT":
             return false;
         default:

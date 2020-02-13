@@ -3,6 +3,7 @@ import { TextField, Box, Button } from "@material-ui/core";
 import "./Login.css";
 import {  connect } from "react-redux";
 import { postData } from "../../store/actions/repositoryActions";
+import login from "../../store/actions/logInActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon"
 
@@ -28,6 +29,14 @@ function Login(props) {
     const response = props.response;
     const error = props.error;
 
+    useEffect(()=>{
+        if(response){
+            if(response.status === 200){
+                console.log("Logged in! ")
+                props.onLogin()
+            }  
+        }
+    },[response])
 
     return (
         <Fragment>
@@ -35,8 +44,12 @@ function Login(props) {
         showError={true}
         errorMessage={error}
         />:<Fragment/>}
-        <div className="page-container">
-            <StudentIcon  onPassword={onPassword} eyeRotation = {userName.length}></StudentIcon>
+        <div className="page-container" onClick = {(e)=>
+            {if(e.target.id !="password-input")setOnPassword(false)}
+        }>
+            <div style={{paddingBottom: "20px"}}>
+            <StudentIcon onPassword={onPassword} eyeRotation = {userName.length}></StudentIcon>
+            </div>
             <form noValidate autoComplete="off">
                 <Box className="textfield-container">
                     <TextField
@@ -66,6 +79,7 @@ function Login(props) {
                 </Box>
                 <Box>
                     <Button
+                        onFocus ={()=>setOnPassword(false)}
                         variant="contained"
                         color="primary"
                         className="login-btn"
@@ -82,14 +96,15 @@ function Login(props) {
 
 const mapStateToProps = state => {
     return {
-        repsonse: state.repository.response,
+        response: state.repository.response,
         error: state.errorHandler.errorMessage,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onPostData: (url, data, props) => dispatch(postData(url, data, props))
+        onPostData: (url, data, props) => dispatch(postData(url, data, props)),
+        onLogin:() => dispatch(login())
     };
 };
 
