@@ -34,8 +34,29 @@ nav{
 .nav-links a{
     color: black;
     text-decoration: none;
-	transition: all 0.3s ease;
 }
+
+.nav-links-left a{
+    transition: "all 2s ease";
+}
+
+.nav-links-left a::after {
+    content: '';
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: #000;
+    transition: width .3s;
+}
+
+.nav-links-left a:link::after{
+    width: 0;
+}
+
+.nav-links-left a:hover::after {
+    width: 100%;
+}
+
 
 .nav-links li{
     list-style: none;
