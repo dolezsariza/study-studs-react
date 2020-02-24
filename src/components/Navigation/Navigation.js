@@ -13,7 +13,7 @@ export default function Navigation() {
             <ul className="nav-links nav-links-left">
                 <li>
                     <div className="link-wrapper">
-                        <NavLink to={"/"} exact>
+                        <NavLink activeClassName="is-active" to={"/"} exact>
                             Home
                         </NavLink>
                     </div>

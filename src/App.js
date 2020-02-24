@@ -11,7 +11,7 @@ import InternalServer from "./pages/errorPages/InternalServer/InternalServer";
 import NotFound from "./pages/errorPages/NotFound/NotFound";
 import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {basic} from "./themes/themes";
+import { basic } from "./themes/themes";
 
 function App(props) {
     return (
@@ -22,7 +22,6 @@ function App(props) {
 }
 
 function Content() {
-
     return (
         <Router>
             <ThemeProvider theme={basic}>

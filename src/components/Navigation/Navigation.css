@@ -40,21 +40,7 @@ nav {
     transition: "all 2s ease";
 }
 
-.nav-links-left a::after {
-    content: "";
-    display: block;
-    height: 2px;
-    border-radius: 2px;
-    background: #000;
-    transition: width 0.3s;
-}
-
-.nav-links-left a:link::after {
-    width: 0;
-}
-
-.nav-links-left a:hover::after {
-    width: 100%;
+.is-active {
 }
 
 .nav-links li {
@@ -76,5 +62,23 @@ nav {
     }
     .nav-links-right {
         width: 25%;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .nav-links-left {
+        width: 50%;
+    }
+    .nav-links-right {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav-links-left {
+        width: 30%;
+    }
+    .nav-links-right {
+        width: 60%;
     }
 }

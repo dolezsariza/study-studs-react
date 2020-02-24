@@ -3,10 +3,10 @@ import { TextField, Box, Button } from "@material-ui/core";
 import "./Login.css";
 import { connect } from "react-redux";
 import { postData } from "../../store/actions/repositoryActions";
-import {login} from "../../store/actions/logInActions";
+import { login } from "../../store/actions/logInActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon";
-import {closeErrorInfo} from "../../store/actions/errorHandlerActions";
+import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 
 function Login(props) {
     const [userName, setUserName] = useState("");
@@ -39,12 +39,11 @@ function Login(props) {
         }
     }, [response, props]);
 
-
     useEffect(() => {
-        if(error){
-            setTimeout(props.onCloseError,3000);
+        if (error) {
+            setTimeout(props.onCloseError, 3000);
         }
-    }, [error, props])
+    }, [error, props]);
 
     return (
         <Fragment>
@@ -70,6 +69,7 @@ function Login(props) {
                     <Box className="textfield-container">
                         <TextField
                             autoFocus={true}
+                            className="textfield"
                             onFocus={() => setOnPassword(false)}
                             id="username-input"
                             label="User Name"

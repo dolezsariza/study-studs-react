@@ -1,4 +1,5 @@
-.error-alert {
+.error-alert,
+.success-alert {
     position: absolute;
     top: 5%;
     left: 50%;
