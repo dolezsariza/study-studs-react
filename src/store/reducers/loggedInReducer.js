@@ -1,12 +1,12 @@
-
 const initialState = {
+    userId: "",
     loggedIn: false
 };
-
 
 const executeLogin = (state, action) => {
     return {
         ...state,
+        userId: action.userId[0],
         loggedIn: true
     };
 };

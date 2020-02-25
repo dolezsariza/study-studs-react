@@ -14,7 +14,6 @@ function Login(props) {
     const [password, setPassword] = useState("");
     const [onPassword, setOnPassword] = useState(false);
     const [error, setError] = useState("");
-    const url = "/Login";
 
     const tryLogin = () => {
         axios
@@ -27,7 +26,7 @@ function Login(props) {
                     if (response.status === 200) {
                         console.log("Logged in! ");
                         props.history.push("/");
-                        props.onLogin();
+                        props.onLogin(response.data);
                     }
                 }
             })
@@ -118,7 +117,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onLogin: () => dispatch(login()),
+        onLogin: id => dispatch(login(id)),
         onCloseError: () => dispatch(closeErrorInfo())
     };
 };
