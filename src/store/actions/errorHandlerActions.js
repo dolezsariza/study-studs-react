@@ -1,40 +1,48 @@
-import * as actionTypes from './actionTypes';
- 
-const execute404Handler = (props) => {
+import * as actionTypes from "./actionTypes";
+
+const execute404Handler = props => {
     return {
         type: actionTypes.HTTP_404_ERROR,
         props: props
-    }
-}
- 
-const execute500Handler = (props) => {
+    };
+};
+
+const execute500Handler = props => {
     return {
         type: actionTypes.HTTP_500_ERROR,
         props: props
-    }
-}
- 
-const executeOtherErrorHandler = (error) => {
+    };
+};
+
+const executeOtherErrorHandler = error => {
     return {
         type: actionTypes.HTTP_OTHER_ERROR,
         error: error
-    }
-}
+    };
+};
+
+const executeNoConnectionHandler = props => {
+    return {
+        type: actionTypes.NO_CONNECTION_ERROR,
+        props: props
+    };
+};
 
 export const closeErrorInfo = () => {
     return {
         type: actionTypes.CLOSE_ERROR_INFO
-    }
-}
- 
+    };
+};
+
 export const handleHTTPError = (error, props) => {
+    if (error.response === undefined || error.response === null) {
+        return executeNoConnectionHandler(props);
+    }
     if (error.response.status === 404) {
         return execute404Handler(props);
-    }
-    else if (error.response.status === 500) {
+    } else if (error.response.status === 500) {
         return execute500Handler(props);
-    }
-    else {
+    } else {
         return executeOtherErrorHandler(error);
     }
-}
+};
