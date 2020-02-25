@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./NoConnection.css";
 
 const notFound = props => {
     return (
-        <p className={"noConnection"}>THERE'S NO CONNECTION TO THE SERVER!!!</p>
+            <p className={"noConnection"}>
+                THERE'S NO CONNECTION TO THE SERVER!!!
+            </p>
     );
 };
 

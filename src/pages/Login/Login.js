@@ -8,15 +8,17 @@ import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import axios from "../../axios/axios";
-
+import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 function Login(props) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [onPassword, setOnPassword] = useState(false);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const url = "/Login";
 
     const tryLogin = () => {
+        setLoading(true);
         axios
             .post("/login", {
                 Username: userName,
@@ -33,7 +35,8 @@ function Login(props) {
             })
             .catch(error => {
                 setError(error.response.data);
-            });
+            })
+            .then(setLoading(false));
     };
 
     useEffect(() => {
@@ -92,15 +95,19 @@ function Login(props) {
                         />
                     </Box>
                     <Box>
-                        <Button
-                            onFocus={() => setOnPassword(false)}
-                            variant="contained"
-                            color="primary"
-                            className="login-btn"
-                            onClick={tryLogin}
-                        >
-                            Login
-                        </Button>
+                        {loading ? (
+                            <LoadingAnimation />
+                        ) : (
+                            <Button
+                                onFocus={() => setOnPassword(false)}
+                                variant="contained"
+                                color="primary"
+                                className="login-btn"
+                                onClick={tryLogin}
+                            >
+                                Login
+                            </Button>
+                        )}
                     </Box>
                 </form>
             </div>

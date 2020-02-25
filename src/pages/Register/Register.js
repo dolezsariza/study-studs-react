@@ -6,6 +6,7 @@ import { postData } from "../../store/actions/repositoryActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import "./Register.css";
+import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 
 function Register(props) {
     const [userName, setUserName] = useState("");
@@ -15,6 +16,7 @@ function Register(props) {
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
     const url = "/register";
 
     const tryRegister = () => {
@@ -24,6 +26,7 @@ function Register(props) {
             passwordError.length === 0;
 
         if (valid) {
+            setLoading(true);
             props.onPostData(
                 url,
                 {
@@ -72,14 +75,18 @@ function Register(props) {
             if (response.status === 201) {
                 console.log("Registered! ");
                 setSuccess(true);
+                setLoading(false);
             }
+            setLoading(false);
         }
     }, [response]);
 
     useEffect(() => {
         if (error) {
             setTimeout(props.onCloseError, 3000);
+            setLoading(false);
         }
+        setLoading(false);
     }, [error, props]);
 
     useEffect(() => {
@@ -160,14 +167,18 @@ function Register(props) {
                         />
                     </Box>
                     <Box>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className="login-btn"
-                            onClick={tryRegister}
-                        >
-                            Register
-                        </Button>
+                        {loading ? (
+                            <LoadingAnimation />
+                        ) : (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className="login-btn"
+                                onClick={tryRegister}
+                            >
+                                Register
+                            </Button>
+                        )}
                     </Box>
                 </form>
             </div>

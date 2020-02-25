@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getData } from "../../store/actions/repositoryActions";
-
 export default function Home(props) {
     const dispatch = useDispatch();
     const welcomeMessage = useSelector(state => state.repository.data);
@@ -12,7 +11,9 @@ export default function Home(props) {
     });
 
     return loggedIn ? (
-        <p style={{ textAlign: "center" }}>{welcomeMessage}</p>
+        <Fragment>
+            <p style={{ textAlign: "center" }}>{welcomeMessage}</p>
+        </Fragment>
     ) : (
         <p style={{ textAlign: "center" }}>Please login!!!</p>
     );
