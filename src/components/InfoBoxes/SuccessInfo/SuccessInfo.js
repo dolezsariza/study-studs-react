@@ -4,11 +4,11 @@ import { Alert } from "@material-ui/lab";
 const SuccessInfo = props => {
     if (props.show) {
         return (
-            <Fragment>
+            <div className="success-alert">
                 <Alert severity="success">
                     {props.bodyText}
                 </Alert>
-            </Fragment>
+            </div>
         );
     } else return null;
 };

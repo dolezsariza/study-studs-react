@@ -34,9 +34,9 @@ function Content() {
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
             <Route path="/logout" exact component={Logout} />
-            <Route path="/500" component={InternalServer} />
-            <Route path="*" component={NotFound} />
             <Route path="/profile" exact component={Profile} />
+<Route path="/500" component={InternalServer} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </Container>
         <Footer />

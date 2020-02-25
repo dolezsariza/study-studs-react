@@ -1,17 +1,43 @@
-import React, { Fragment} from "react";
+import React, { Fragment } from "react";
 import { Alert, AlertTitle } from "@material-ui/lab";
+import { connect } from "react-redux";
+import { closeErrorInfo } from "../../../store/actions/errorHandlerActions";
 
 const ErrorInfo = props => {
     if (props.show) {
         return (
-            <Fragment>
-                <Alert severity="error">
+            <div className="error-alert">
+                <Alert
+                    severity="error"
+                    style={
+                        props.show
+                            ? {
+                                  opacity: "1",
+                                  display: "box"
+                              }
+                            : {
+                                  opacity: "0",
+                                  display: "none"
+                              }
+                    }
+                    onClose={props.onCloseError}
+                >
                     <AlertTitle>{props.HeaderText}</AlertTitle>
                     {props.bodyText}
                 </Alert>
-            </Fragment>
+            </div>
         );
     } else return null;
 };
 
-export default ErrorInfo;
+const mapStateToProps = state => {
+    return {};
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onCloseError: () => dispatch(closeErrorInfo())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ErrorInfo);
