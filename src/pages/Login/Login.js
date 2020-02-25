@@ -7,47 +7,44 @@ import { login } from "../../store/actions/logInActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
+import axios from "../../axios/axios";
 
 function Login(props) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [onPassword, setOnPassword] = useState(false);
-
+    const [error, setError] = useState("");
     const url = "/Login";
 
     const tryLogin = () => {
-        props.onPostData(
-            url,
-            {
-                userName,
-                password
-            },
-            { ...props }
-        );
+        axios
+            .post("/login", {
+                Username: userName,
+                Password: password
+            })
+            .then(response => {
+                if (response) {
+                    if (response.status === 200) {
+                        console.log("Logged in! ");
+                        props.history.push("/");
+                        props.onLogin();
+                    }
+                }
+            })
+            .catch(error => {
+                setError(error.response.data);
+            });
     };
 
-    const response = props.response;
-    const error = props.error;
-
     useEffect(() => {
-        if (response) {
-            if (response.status === 200) {
-                console.log("Logged in! ");
-                props.history.push("/");
-                props.onLogin();
-            }
+        if (error !== "") {
+            setTimeout(() => setError(""), 3000);
         }
-    }, [response, props]);
-
-    useEffect(() => {
-        if (error) {
-            setTimeout(props.onCloseError, 3000);
-        }
-    }, [error, props]);
+    }, [error]);
 
     return (
         <Fragment>
-            {error ? (
+            {error.length > 0 ? (
                 <InfoBox showError={true} errorMessage={error} />
             ) : (
                 <Fragment />
