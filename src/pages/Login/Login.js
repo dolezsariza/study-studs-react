@@ -15,7 +15,6 @@ function Login(props) {
     const [onPassword, setOnPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const url = "/Login";
 
     const tryLogin = () => {
         setLoading(true);
@@ -131,7 +130,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onLogin: id => dispatch(login(id)),
+        onLogin: username => dispatch(login(username)),
         onCloseError: () => dispatch(closeErrorInfo())
     };
 };

@@ -1,7 +1,7 @@
-export function login(id) {
+export function login(userName) {
     return dispatch =>
         dispatch({
-            userId: id,
+            userName: userName,
             type: "SIGN_IN"
         });
 }

@@ -87,6 +87,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-const linebrakeToHtmlConverter = line => {};
-
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
