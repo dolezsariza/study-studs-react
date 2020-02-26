@@ -1,20 +1,55 @@
 import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getData } from "../../store/actions/repositoryActions";
-export default function Home(props) {
-    const dispatch = useDispatch();
-    const welcomeMessage = useSelector(state => state.repository.data);
+import { connect } from "react-redux";
+import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
+import TopicHeader from "../../components/TopicHeader/TopicHeader";
+
+function Home(props) {
     const loggedIn = useSelector(state => state.loggedIn.loggedIn);
 
     useEffect(() => {
-        dispatch(getData("/Home", props));
-    });
+        const url = "/topics";
+        props.onGetData(url, props);
+    }, []);
+
+    const topics = props.data.length
+        ? props.data.map(topic => (
+              <TopicHeader
+                  history={props.history}
+                  key={topic.id}
+                  id={topic.id}
+                  ownerId={topic.ownerId}
+                  title={topic.title}
+                  description={topic.description}
+                  date={topic.date}
+              />
+          ))
+        : null;
 
     return loggedIn ? (
         <Fragment>
-            <p style={{ textAlign: "center" }}></p>
+            <h2>Topics</h2>
+            {topics}
         </Fragment>
     ) : (
         <p style={{ textAlign: "center" }}>Please login!!!</p>
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        data: state.repository.data,
+        error: state.errorHandler.errorMessage,
+        loggedIn: state.loggedIn.loggedIn
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onGetData: (url, props) => dispatch(getData(url, props)),
+        onCloseError: () => dispatch(closeErrorInfo())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
