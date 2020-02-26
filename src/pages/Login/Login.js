@@ -48,7 +48,13 @@ function Login(props) {
     return (
         <Fragment>
             {error.length > 0 ? (
-                <InfoBox showError={true} errorMessage={error} />
+                <InfoBox
+                    showError={true}
+                    errorMessage={error}
+                    onClose={() => {
+                        setError("");
+                    }}
+                />
             ) : (
                 <Fragment />
             )}

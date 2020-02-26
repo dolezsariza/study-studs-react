@@ -108,7 +108,16 @@ function Register(props) {
             ) : (
                 <Fragment />
             )}
-            {success ? <InfoBox showSuccess={true} /> : <Fragment />}
+            {success ? (
+                <InfoBox
+                    showSuccess={true}
+                    onClose={() => {
+                        setSuccess(false);
+                    }}
+                />
+            ) : (
+                <Fragment />
+            )}
             <div className="page-container">
                 <form noValidate autoComplete="off">
                     <Box className="textfield-container">

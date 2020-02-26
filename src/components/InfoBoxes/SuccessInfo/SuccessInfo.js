@@ -5,7 +5,14 @@ const SuccessInfo = props => {
     if (props.show) {
         return (
             <div className="success-alert">
-                <Alert severity="success">
+                <Alert
+                    severity="success"
+                    onClose={() => {
+                        if (props.onClose) {
+                            props.onClose();
+                        }
+                    }}
+                >
                     {props.bodyText}
                 </Alert>
             </div>
