@@ -12,7 +12,7 @@ export default function Home(props) {
 
     return loggedIn ? (
         <Fragment>
-            <p style={{ textAlign: "center" }}>{welcomeMessage}</p>
+            <p style={{ textAlign: "center" }}></p>
         </Fragment>
     ) : (
         <p style={{ textAlign: "center" }}>Please login!!!</p>

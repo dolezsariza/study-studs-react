@@ -3,14 +3,16 @@ import Post from "../Post/Post";
 
 export default function Posts(props) {
     console.log(props.posts);
-    return props.posts.map(post => (
-        <Post
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            message={post.message}
-            date={post.date}
-            ownerId={post.ownerId}
-        />
-    ));
+    if (props.posts) {
+        return props.posts.map(post => (
+            <Post
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                message={post.message}
+                date={post.date}
+                ownerId={post.ownerId}
+            />
+        ));
+    } else return null;
 }

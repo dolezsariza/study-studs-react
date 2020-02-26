@@ -1,4 +1,5 @@
-import React, { useEffect, useLocation } from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
 import { Box, Button, Link } from "@material-ui/core";
@@ -7,12 +8,12 @@ import { getData } from "../../store/actions/repositoryActions";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 
 function Topic(props) {
-    const path = props.location.pathname;
     const posts = props.data.posts;
+
+    let { id } = useParams();
     useEffect(() => {
-        const id = path.split("/")[2];
         const url = "/topics/" + id;
-        console.log(props);
+        console.log(id);
         props.onGetData(url, props);
     }, []);
 
@@ -21,7 +22,13 @@ function Topic(props) {
             <Box className="topic-info">
                 <Box className="row">
                     <h2 className="topic-title">{props.data.title}</h2>
-                    <Link className="topic-username">{props.data.ownerId}</Link>
+                    <Link
+                        color="secondary"
+                        href={"/profile/" + props.data.ownerId}
+                        className="topic-username"
+                    >
+                        {props.data.ownerId}
+                    </Link>
                 </Box>
                 <Box className="row">
                     <p className="topic-message">{props.data.description}</p>

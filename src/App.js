@@ -32,14 +32,14 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        <Route path="/topic" component={Topic} />
+                        <Route path="/topic/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/logout" exact component={Logout} />
                         <Route path="/500" component={InternalServer} />
                         <Route path="/no-connection" component={NoConnection} />
                         <Route path="*" component={NotFound} />
-                    </Switch>
+                    </Switch>   
                 </Container>
                 <Footer />
             </ThemeProvider>
