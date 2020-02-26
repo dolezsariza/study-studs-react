@@ -19,13 +19,11 @@ export default function Post(props) {
             <h4 className="post-title">{props.title}</h4>
             <p className="post-message">{props.message}</p>
             <Box className="row">
-                <Link
-                    href={"/profile/" + props.ownerId}
-                    color="secondary"
-                    className="post-username"
-                >
-                    {props.ownerId}
-                </Link>
+                <div className="post-username">
+                    <Link href={"/profile/" + props.ownerId} color="secondary">
+                        {props.ownerId}
+                    </Link>
+                </div>
                 <p className="post-date">{props.date}</p>
             </Box>
         </Card>
