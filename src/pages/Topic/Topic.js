@@ -1,63 +1,30 @@
-import React from "react";
+import React, { useEffect, useLocation } from "react";
 import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
 import { Box, Button, Link } from "@material-ui/core";
+import { connect } from "react-redux";
+import { getData } from "../../store/actions/repositoryActions";
+import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 
-export default function Topic() {
-    const posts = [
-        {
-            id: "asdaoighaweiofhasdohj1",
-            title: "Hello there",
-            message:
-                "MAofjshgpi aosfhqof ajdiajf fidjf ija oahwfoahfoasd aspksd asodkodoaoisd",
-            creationDate: "2020.02.28",
-            username: "username"
-        },
-        {
-            id: "asdaoighaweiofhasdohj2",
-            title: "Hello there",
-            message:
-                "MAofjshgpi aosfhqof ajdiajf fidjf ija oahwfoahfoasd aspksd asodkodoaoisd",
-            creationDate: "2020.02.28",
-            username: "username"
-        },
-        {
-            id: "asdaoighaweiofhasdohj3",
-            title: "Hello there",
-            message:
-                "MAofjshgpi aosfhqof ajdiajf fidjf ija oahwfoahfoasd aspksd asodkodoaoisd",
-            creationDate: "2020.02.28",
-            username: "username"
-        },
-        {
-            id: "asdaoighaweiofhasdohj4",
-            title: "Hello there",
-            message:
-                "MAofjshgpi aosfhqof ajdiajf fidjf ija oahwfoahfoasd aspksd asodkodoaoisd",
-            creationDate: "2020.02.28",
-            username: "username"
-        },
-        {
-            id: "asdaoighaweiofhasdohj5",
-            title: "Hello there",
-            message:
-                "MAofjshgpi aosfhqof ajdiajf fidjf ija oahwfoahfoasd aspksd asodkodoaoisd",
-            creationDate: "2020.02.28",
-            username: "username"
-        }
-    ];
+function Topic(props) {
+    const path = props.location.pathname;
+    const posts = props.data.posts;
+    useEffect(() => {
+        const id = path.split("/")[2];
+        const url = "/topics/" + id;
+        console.log(props);
+        props.onGetData(url, props);
+    }, []);
 
     return (
         <Box className="topic">
             <Box className="topic-info">
                 <Box className="row">
-                    <h2 className="topic-title">Topic Title</h2>
-                    <Link className="topic-username">Username</Link>
+                    <h2 className="topic-title">{props.data.title}</h2>
+                    <Link className="topic-username">{props.data.ownerId}</Link>
                 </Box>
                 <Box className="row">
-                    <p className="topic-message">
-                        This is a short description of the topic!
-                    </p>
+                    <p className="topic-message">{props.data.description}</p>
                 </Box>
                 <Box className="row">
                     <Box className="topic-actions">
@@ -65,7 +32,7 @@ export default function Topic() {
                             Add Post
                         </Button>
                     </Box>
-                    <p className="topic-date">2020.02.26</p>
+                    <p className="topic-date">{props.data.date}</p>
                 </Box>
             </Box>
             <Box className="posts">
@@ -74,3 +41,19 @@ export default function Topic() {
         </Box>
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        data: state.repository.data,
+        error: state.errorHandler.errorMessage
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onGetData: (url, props) => dispatch(getData(url, props)),
+        onCloseError: () => dispatch(closeErrorInfo())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Topic);

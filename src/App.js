@@ -32,7 +32,7 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        <Route path="/topic" exact component={Topic} />
+                        <Route path="/topic" component={Topic} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/logout" exact component={Logout} />

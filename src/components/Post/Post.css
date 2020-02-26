@@ -15,7 +15,8 @@
     width: 30%;
 }
 
-.post-creation-date {
+.post-date {
     width: 70%;
     text-align: right;
+    color: rgba(128, 128, 128, 0.404);
 }
