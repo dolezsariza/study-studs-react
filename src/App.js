@@ -4,6 +4,7 @@ import { Container, ThemeProvider } from "@material-ui/core";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Home from "./pages/Home/Home";
+import Topic from "./pages/Topic/Topic";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Logout from "./pages/Logout/Logout";
@@ -31,6 +32,7 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
+                        <Route path="/topic" exact component={Topic} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/logout" exact component={Logout} />
