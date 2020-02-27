@@ -6,7 +6,6 @@ const initialState = {
     response: null
 };
 
-
 const executeGetDataSuccess = (state, action) => {
     return {
         ...state,
@@ -35,6 +34,14 @@ const executeDeleteDataSuccess = (state, action) => {
     };
 };
 
+const executeRemoveData = (state, action) => {
+    return {
+        ...state,
+        response: null,
+        data: null
+    };
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.GET_DATA_SUCCESS:
@@ -45,6 +52,8 @@ const reducer = (state = initialState, action) => {
             return executePutDataSuccess(state, action);
         case actionTypes.DELETE_DATA_SUCCESS:
             return executeDeleteDataSuccess(state, action);
+        case actionTypes.REMOVE_DATA:
+            return executeRemoveData(state);
         default:
             return state;
     }
