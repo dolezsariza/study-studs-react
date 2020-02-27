@@ -6,6 +6,7 @@ import "./Navigation.css";
 
 export default function Navigation() {
     const loggedIn = useSelector(state => state.loggedIn.loggedIn);
+    const username = useSelector(state => state.loggedIn.userName);
 
     return (
         <nav>
@@ -46,6 +47,15 @@ export default function Navigation() {
                     </Fragment>
                 ) : (
                     <Fragment>
+                        <li>
+                            <div className="link-wrapper">
+                                <NavLink to={`/profile/${username}`} exact>
+                                    <Button variant="contained" color="primary">
+                                        Profile
+                                    </Button>
+                                </NavLink>
+                            </div>
+                        </li>
                         <li>
                             <div className="link-wrapper">
                                 <NavLink to={"/logout"} exact>

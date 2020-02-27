@@ -16,6 +16,7 @@ import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { basic } from "./themes/themes";
 import Profile from "./pages/Profile/Profile";
+import Editprofile from "./pages/EditProfile/Editprofile";
 
 function App(props) {
     return (
@@ -39,6 +40,11 @@ function Content() {
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/logout" exact component={Logout} />
+                        <Route
+                            path="/profile/edit"
+                            exact
+                            component={Editprofile}
+                        />
                         <Route
                             path="/profile/:username"
                             exact

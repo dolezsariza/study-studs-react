@@ -19,3 +19,6 @@
 .header {
     margin-left: 60px;
 }
+.btn a {
+    text-decoration: none;
+}
