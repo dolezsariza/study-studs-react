@@ -6,7 +6,8 @@ import Date from "../Date/Date";
 export default function TopicHeader(props) {
     const [raised, setRaised] = useState(false);
 
-    const toTopic = () => {
+    const toTopic = e => {
+        console.log(e.currentTarget);
         props.history.push("/topic/" + props.id);
     };
 
@@ -25,13 +26,18 @@ export default function TopicHeader(props) {
             <h4 className="topic-header-title">{props.title}</h4>
             <p className="topic-header-message">{props.description}</p>
             <Box className="row">
-                <Link
-                    href={"/profile/" + props.ownerName}
-                    color="secondary"
-                    className="topic-header-username"
-                >
-                    {props.ownerName}
-                </Link>
+                <div className="topic-header-username">
+                    <Link
+                        onClick={e => {
+                            e.stopPropagation();
+                            props.history.push("/profile/" + props.ownerName);
+                        }}
+                        color="secondary"
+                        className="username-link"
+                    >
+                        {props.ownerName}
+                    </Link>
+                </div>
                 <Date className="topic-header-date">{props.date}</Date>
             </Box>
         </Card>
