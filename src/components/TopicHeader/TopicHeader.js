@@ -13,7 +13,7 @@ export default function TopicHeader(props) {
     return (
         <Card
             raised={raised}
-            className="topic"
+            className="topic-header"
             onClick={toTopic}
             onMouseOver={() => {
                 setRaised(true);
@@ -22,17 +22,17 @@ export default function TopicHeader(props) {
                 setRaised(false);
             }}
         >
-            <h4 className="topic-title">{props.title}</h4>
-            <p className="topic-message">{props.description}</p>
+            <h4 className="topic-header-title">{props.title}</h4>
+            <p className="topic-header-message">{props.description}</p>
             <Box className="row">
                 <Link
                     href={"/profile/" + props.ownerName}
                     color="secondary"
-                    className="topic-username"
+                    className="topic-header-username"
                 >
                     {props.ownerName}
                 </Link>
-                <Date className="topic-date">{props.date}</Date>
+                <Date className="topic-header-date">{props.date}</Date>
             </Box>
         </Card>
     );
