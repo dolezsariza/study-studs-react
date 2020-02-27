@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { getData } from "../../store/actions/repositoryActions";
 import { useParams } from "react-router-dom";
 import Datagrid from "./DataGrid";
-import Delete from "./Delete";
 
 function Profile(props) {
     const { username } = useParams();
@@ -20,10 +19,6 @@ function Profile(props) {
     return (
         <Fragment>
             <Datagrid props={props} />
-            <Delete
-                username={username}
-                currentUserName={props.currentUserName}
-            />
         </Fragment>
     );
 }
