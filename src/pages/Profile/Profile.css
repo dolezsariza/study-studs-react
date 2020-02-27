@@ -1,24 +1,7 @@
-.profile-picture {
-    max-width: 130px;
-    margin-left: 45px;
-    margin-top: 10%;
-}
-.name {
-    margin-top: 2%;
-}
-
-.details {
-    margin-left: 45px;
-    margin-top: 2%;
-}
-
-.detail {
-    margin-top: 20px;
-}
-
-.header {
-    margin-left: 60px;
-}
 .btn a {
     text-decoration: none;
+}
+.btn {
+    margin-top: 30px;
+    margin-left: 45px;
 }
