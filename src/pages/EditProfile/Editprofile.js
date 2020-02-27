@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { TextField, Grid, Button } from "@material-ui/core";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 import axios from "../../axios/axios";
-import "./Editprofile.css";
 
 function Editprofile(props) {
     const [firstName, setFirstName] = useState(props.firstName);
@@ -54,7 +53,7 @@ function Editprofile(props) {
                     <Grid
                         container
                         direction="column"
-                        spacing={2}
+                        justify="space-between"
                         className="grid-container"
                     >
                         <Grid item sx className="textfield-container">
@@ -170,20 +169,22 @@ function Editprofile(props) {
                             />
                         </Grid>
                     </Grid>
-                    <Grid item sx className="btn-container">
-                        {loading ? (
-                            <LoadingAnimation />
-                        ) : (
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className="save-btn"
-                                onClick={tryEdit}
-                            >
-                                Save
-                            </Button>
-                        )}
-                    </Grid>
+                    <div className="btn-container">
+                        <Grid item sx>
+                            {loading ? (
+                                <LoadingAnimation />
+                            ) : (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className="save-btn"
+                                    onClick={tryEdit}
+                                >
+                                    Save
+                                </Button>
+                            )}
+                        </Grid>
+                    </div>
                 </form>
             </div>
         </Fragment>
