@@ -2,10 +2,9 @@ import "./Profile.css";
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { getData } from "../../store/actions/repositoryActions";
-import Image from "../../components/BasicProfilePicture/Image";
-import Grid from "@material-ui/core/Grid";
-import { Typography } from "@material-ui/core";
 import { useParams } from "react-router-dom";
+import Datagrid from "./DataGrid";
+import Delete from "./Delete";
 
 function Profile(props) {
     const { username } = useParams();
@@ -15,69 +14,23 @@ function Profile(props) {
         props.onGetData(url, props);
     }, [props, url]);
 
+    if (props.firstName === null) {
+        return <h1>Fucked</h1>;
+    }
     return (
         <Fragment>
-            <Grid container spacing={2} className="profile-content">
-                <Grid item xs className="profile-picture">
-                    <Image image={props.profilePicture} />
-                </Grid>
-                <Grid item xs>
-                    <h2 className="name">
-                        {props.firstName} {props.lastName} ({props.nickName})
-                    </h2>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <h3 className="details">Details:</h3>
-                </Grid>
-
-                <Grid container direction="column" spacing={2}>
-                    <Grid container direction="row" className="detail">
-                        <Grid item xs={2}>
-                            <h4 className="header">School:</h4>
-                        </Grid>
-                        <Grid item className="content school" xs>
-                            {props.school}
-                        </Grid>
-                    </Grid>
-                    <Grid container direction="row" className="detail">
-                        <Grid item xs={2}>
-                            <h4 className="header">City:</h4>
-                        </Grid>
-                        <Grid item className="content city" xs>
-                            {props.city}
-                        </Grid>
-                    </Grid>
-                    <Grid container direction="row" className="detail">
-                        <Grid item xs={2}>
-                            <h4 className="header">Introduction:</h4>
-                        </Grid>
-                        <Grid
-                            item
-                            className="content introduction"
-                            xs
-                            zeroMinWidth
-                        >
-                            <Typography>{props.introduction}</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container direction="row" className="detail">
-                        <Grid item xs={2}>
-                            <h4 className="header">Interests:</h4>
-                        </Grid>
-                        <Grid item className="content intersts" xs>
-                            {props.interests}
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
+            <Datagrid props={props} />
+            <Delete
+                username={username}
+                currentUserName={props.currentUserName}
+            />
         </Fragment>
     );
 }
 const mapStateToProps = state => {
     return {
         ...state.repository.data,
-        userId: state.loggedIn.userId
+        currentUserName: state.loggedIn.userName
     };
 };
 
@@ -86,5 +39,7 @@ const mapDispatchToProps = dispatch => {
         onGetData: (url, props) => dispatch(getData(url, props))
     };
 };
+
+//Ha van topic, akkor topic gomb a ~/topics
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
