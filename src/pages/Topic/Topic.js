@@ -4,18 +4,26 @@ import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
 import { Box, Button, Link } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getData } from "../../store/actions/repositoryActions";
+import { getData, removeData } from "../../store/actions/repositoryActions";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 
 function Topic(props) {
-    const posts = props.data.posts;
+    const posts = props.data ? props.data.posts : null;
 
     let { id } = useParams();
+
     useEffect(() => {
         const url = "/topics/" + id;
         console.log(id);
         props.onGetData(url, props);
+        return () => {
+            props.onRemoveData();
+        };
     }, []);
+
+    if (!props.data) {
+        return null;
+    }
 
     return (
         <Box className="topic">
@@ -60,7 +68,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGetData: (url, props) => dispatch(getData(url, props)),
-        onCloseError: () => dispatch(closeErrorInfo())
+        onCloseError: () => dispatch(closeErrorInfo()),
+        onRemoveData: () => dispatch(removeData())
     };
 };
 

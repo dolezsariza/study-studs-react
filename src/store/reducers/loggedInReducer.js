@@ -1,12 +1,14 @@
 const initialState = {
     userName: "",
+    userId: "",
     loggedIn: false
 };
 
 const executeLogin = (state, action) => {
     return {
         ...state,
-        userName: action.userName[0],
+        userName: action.claims[1],
+        userId: action.claims[0],
         loggedIn: true
     };
 };
@@ -19,6 +21,7 @@ const executeLogout = (state, action) => {
 };
 
 const loggedReducer = (state = initialState, action) => {
+    console.log(action);
     switch (action.type) {
         case "SIGN_IN":
             return executeLogin(state, action);

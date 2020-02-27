@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect } from "react";
 import { TextField, Box, Button } from "@material-ui/core";
 import "./Login.css";
 import { connect } from "react-redux";
-import { postData } from "../../store/actions/repositoryActions";
+import { postData, removeData } from "../../store/actions/repositoryActions";
 import { login } from "../../store/actions/logInActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon";
@@ -43,6 +43,12 @@ function Login(props) {
             setTimeout(() => setError(""), 3000);
         }
     }, [error]);
+
+    useEffect(() => {
+        return () => {
+            props.onRemoveData();
+        };
+    }, []);
 
     return (
         <Fragment>
@@ -131,7 +137,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
         onLogin: username => dispatch(login(username)),
-        onCloseError: () => dispatch(closeErrorInfo())
+        onCloseError: () => dispatch(closeErrorInfo()),
+        onRemoveData: () => dispatch(removeData())
     };
 };
 

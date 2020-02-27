@@ -1,7 +1,7 @@
 import "./Profile.css";
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { getData } from "../../store/actions/repositoryActions";
+import { getData, removeData } from "../../store/actions/repositoryActions";
 import Image from "../../components/BasicProfilePicture/Image";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";

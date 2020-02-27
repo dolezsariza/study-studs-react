@@ -9,6 +9,12 @@ const getDataSuccess = data => {
     };
 };
 
+export const removeData = () => {
+    return dispatch => {
+        dispatch({ type: actionTypes.REMOVE_DATA });
+    };
+};
+
 export const getData = (url, props) => {
     return dispatch => {
         axios

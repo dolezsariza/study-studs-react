@@ -35,6 +35,7 @@ export const closeErrorInfo = () => {
 };
 
 export const handleHTTPError = (error, props) => {
+    console.log(error.response);
     if (error.response === undefined || error.response === null) {
         return executeNoConnectionHandler(props);
     }
