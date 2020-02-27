@@ -1,21 +1,11 @@
 import React, { useState } from "react";
 import "./Post.css";
 import { Card, Link, Box } from "@material-ui/core";
+import Date from "../Date/Date";
 
 export default function Post(props) {
-    const [raised, setRaised] = useState(false);
-
     return (
-        <Card
-            raised={raised}
-            className="post"
-            onMouseOver={() => {
-                setRaised(true);
-            }}
-            onMouseLeave={() => {
-                setRaised(false);
-            }}
-        >
+        <Card className="post">
             <h4 className="post-title">{props.title}</h4>
             <p className="post-message">{props.message}</p>
             <Box className="row">
@@ -27,7 +17,7 @@ export default function Post(props) {
                         {props.ownerName}
                     </Link>
                 </div>
-                <p className="post-date">{props.date}</p>
+                <Date className="post-date">{props.date}</Date>
             </Box>
         </Card>
     );

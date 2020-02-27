@@ -1,21 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useParams } from "react-router-dom";
 import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
 import { Box, Button, Link } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getData } from "../../store/actions/repositoryActions";
+import { getData, removeData } from "../../store/actions/repositoryActions";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
+import Date from "../../components/Date/Date";
 
 function Topic(props) {
-    const posts = props.data.posts;
+    const posts = props.data ? props.data.posts : null;
+    if (posts) posts.reverse();
 
-    let { id } = useParams();
+    const { id } = useParams();
+
     useEffect(() => {
         const url = "/topics/" + id;
-        console.log(id);
         props.onGetData(url, props);
+        return () => {
+            props.onRemoveData();
+        };
     }, []);
+
+    if (!props.data) {
+        return null;
+    }
 
     return (
         <Box className="topic">
@@ -36,11 +45,21 @@ function Topic(props) {
                 </Box>
                 <Box className="row">
                     <Box className="topic-actions">
-                        <Button color="primary" variant="contained">
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={() => {
+                                props.history.push("/topic/" + id + "/post");
+                            }}
+                        >
                             Add Post
                         </Button>
                     </Box>
-                    <p className="topic-date">{props.data.date}</p>
+                    {props.data.date ? (
+                        <Date className="post-date">{props.data.date}</Date>
+                    ) : (
+                        <Fragment />
+                    )}
                 </Box>
             </Box>
             <Box className="posts">
@@ -60,7 +79,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGetData: (url, props) => dispatch(getData(url, props)),
-        onCloseError: () => dispatch(closeErrorInfo())
+        onCloseError: () => dispatch(closeErrorInfo()),
+        onRemoveData: () => dispatch(removeData())
     };
 };
 

@@ -22,7 +22,6 @@ const executeOtherError = (state, action) => {
 };
 
 const executeNoConnection = (state, action) => {
-    console.log(action);
     action.props.history.push("/no-connection");
     return {
         ...state

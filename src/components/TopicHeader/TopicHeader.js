@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { Card, Link, Box } from "@material-ui/core";
 import "./TopicHeader.css";
+import Date from "../Date/Date";
 
 export default function TopicHeader(props) {
     const [raised, setRaised] = useState(false);
 
-    const toTopic = () => {
+    const toTopic = e => {
+        console.log(e.currentTarget);
         props.history.push("/topic/" + props.id);
     };
 
     return (
         <Card
             raised={raised}
-            className="post"
+            className="topic-header"
             onClick={toTopic}
             onMouseOver={() => {
                 setRaised(true);
@@ -21,17 +23,22 @@ export default function TopicHeader(props) {
                 setRaised(false);
             }}
         >
-            <h4 className="post-title">{props.title}</h4>
-            <p className="post-message">{props.description}</p>
+            <h4 className="topic-header-title">{props.title}</h4>
+            <p className="topic-header-message">{props.description}</p>
             <Box className="row">
-                <Link
-                    href={"/profile/" + props.ownerName}
-                    color="secondary"
-                    className="post-username"
-                >
-                    {props.ownerName}
-                </Link>
-                <p className="post-date">{props.date}</p>
+                <div className="topic-header-username">
+                    <Link
+                        onClick={e => {
+                            e.stopPropagation();
+                            props.history.push("/profile/" + props.ownerName);
+                        }}
+                        color="secondary"
+                        className="username-link"
+                    >
+                        {props.ownerName}
+                    </Link>
+                </div>
+                <Date className="topic-header-date">{props.date}</Date>
             </Box>
         </Card>
     );
