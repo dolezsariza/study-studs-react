@@ -22,13 +22,14 @@ function Topic(props) {
             <Box className="topic-info">
                 <Box className="row">
                     <h2 className="topic-title">{props.data.title}</h2>
-                    <Link
-                        color="secondary"
-                        href={"/profile/" + props.data.ownerId}
-                        className="topic-username"
-                    >
-                        {props.data.ownerId}
-                    </Link>
+                    <div className="topic-username">
+                        <Link
+                            color="secondary"
+                            href={"/profile/" + props.data.ownerName}
+                        >
+                            {props.data.ownerName}
+                        </Link>
+                    </div>
                 </Box>
                 <Box className="row">
                     <p className="topic-message">{props.data.description}</p>

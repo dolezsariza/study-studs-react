@@ -11,7 +11,7 @@ export default function Posts(props) {
                 title={post.title}
                 message={post.message}
                 date={post.date}
-                ownerId={post.ownerId}
+                ownerName={post.ownerName}
             />
         ));
     } else return null;

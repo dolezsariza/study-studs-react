@@ -8,6 +8,7 @@ import Topic from "./pages/Topic/Topic";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Logout from "./pages/Logout/Logout";
+import PostToTopic from "./pages/PostToTopic/PostToTopic";
 import NoConnection from "./pages/errorPages/NoConnection/NoConnection";
 import InternalServer from "./pages/errorPages/InternalServer/InternalServer";
 import NotFound from "./pages/errorPages/NotFound/NotFound";
@@ -32,6 +33,7 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
+                        <Route path="/topic/:id/post" component={PostToTopic} />
                         <Route path="/topic/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />
@@ -39,7 +41,7 @@ function Content() {
                         <Route path="/500" component={InternalServer} />
                         <Route path="/no-connection" component={NoConnection} />
                         <Route path="*" component={NotFound} />
-                    </Switch>   
+                    </Switch>
                 </Container>
                 <Footer />
             </ThemeProvider>

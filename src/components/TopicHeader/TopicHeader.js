@@ -25,11 +25,11 @@ export default function TopicHeader(props) {
             <p className="post-message">{props.description}</p>
             <Box className="row">
                 <Link
-                    href={"/profile/" + props.ownerId}
+                    href={"/profile/" + props.ownerName}
                     color="secondary"
                     className="post-username"
                 >
-                    {props.ownerId}
+                    {props.ownerName}
                 </Link>
                 <p className="post-date">{props.date}</p>
             </Box>

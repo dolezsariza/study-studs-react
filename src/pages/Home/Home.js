@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getData } from "../../store/actions/repositoryActions";
 import { connect } from "react-redux";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
@@ -13,19 +13,19 @@ function Home(props) {
         props.onGetData(url, props);
     }, []);
 
-    const topics = props.data.length
+    const topics = props.data?props.data.length>0
         ? props.data.map(topic => (
               <TopicHeader
                   history={props.history}
                   key={topic.id}
                   id={topic.id}
-                  ownerId={topic.ownerId}
+                  ownerName={topic.ownerName}
                   title={topic.title}
                   description={topic.description}
                   date={topic.date}
               />
           ))
-        : null;
+        : null :null;
 
     return loggedIn ? (
         <Fragment>
