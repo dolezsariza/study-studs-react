@@ -40,7 +40,24 @@ function Home(props) {
             {topics}
         </Fragment>
     ) : (
-        <p style={{ textAlign: "center" }}>Please login!!!</p>
+        <Fragment>
+            <h1>Welcome to Study Stud!</h1>
+            <section className="about-us">
+                <h4>About us</h4>
+                <p>
+                    This is a social site, where students can share notes and
+                    comments between each other. You cant post on different
+                    topics you are interested in.
+                </p>
+            </section>
+            <section>
+                <h4>How to use it?</h4>
+                <p>
+                    First you need to register an account, and login. You can
+                    then post to the topics of your choice.
+                </p>
+            </section>
+        </Fragment>
     );
 }
 

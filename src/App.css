@@ -2,7 +2,6 @@ body,
 html {
     padding: 0;
     margin: 0;
-    font-family: "Roboto";
     background-color: #f6f8f8;
 }
 
@@ -15,13 +14,6 @@ p {
 }
 
 h1,
-h2,
-h3,
-h4 {
-    font-weight: 400;
-}
-
-h1,
 h2 {
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -29,9 +21,12 @@ h2 {
 
 h1 {
     font-size: 34px;
+    font-weight: 400;
+    margin: 30px 0;
 }
 
 h2 {
+    font-weight: 500;
     font-size: 30px;
 }
 
@@ -41,7 +36,7 @@ h3 {
     font-size: 24px;
 }
 h4 {
-    font-weight: 600;
+    font-weight: 500;
     text-transform: capitalize;
     font-size: 18px;
 }
@@ -54,4 +49,8 @@ h4:after {
     margin-left: 2px;
     content: " ";
     background-color: black;
+}
+
+section {
+    margin: 20px 0;
 }
