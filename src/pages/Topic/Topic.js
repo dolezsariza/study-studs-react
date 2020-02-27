@@ -10,11 +10,10 @@ import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 function Topic(props) {
     const posts = props.data ? props.data.posts : null;
 
-    let { id } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         const url = "/topics/" + id;
-        console.log(id);
         props.onGetData(url, props);
         return () => {
             props.onRemoveData();
@@ -44,7 +43,13 @@ function Topic(props) {
                 </Box>
                 <Box className="row">
                     <Box className="topic-actions">
-                        <Button color="primary" variant="contained">
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={() => {
+                                props.history.push("/topic/" + id + "/post");
+                            }}
+                        >
                             Add Post
                         </Button>
                     </Box>
