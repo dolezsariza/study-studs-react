@@ -32,6 +32,7 @@ function Home(props) {
               ))
             : null
         : null;
+    if (topics) topics.reverse();
 
     return loggedIn ? (
         <Fragment>

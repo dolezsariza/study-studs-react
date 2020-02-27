@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useParams } from "react-router-dom";
 import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
@@ -6,9 +6,11 @@ import { Box, Button, Link } from "@material-ui/core";
 import { connect } from "react-redux";
 import { getData, removeData } from "../../store/actions/repositoryActions";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
+import Date from "../../components/Date/Date";
 
 function Topic(props) {
     const posts = props.data ? props.data.posts : null;
+    if (posts) posts.reverse();
 
     const { id } = useParams();
 
@@ -53,7 +55,11 @@ function Topic(props) {
                             Add Post
                         </Button>
                     </Box>
-                    <p className="topic-date">{props.data.date}</p>
+                    {props.data.date ? (
+                        <Date className="post-date">{props.data.date}</Date>
+                    ) : (
+                        <Fragment />
+                    )}
                 </Box>
             </Box>
             <Box className="posts">

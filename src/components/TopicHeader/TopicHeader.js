@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, Link, Box } from "@material-ui/core";
 import "./TopicHeader.css";
+import Date from "../Date/Date";
 
 export default function TopicHeader(props) {
     const [raised, setRaised] = useState(false);
@@ -12,7 +13,7 @@ export default function TopicHeader(props) {
     return (
         <Card
             raised={raised}
-            className="post"
+            className="topic"
             onClick={toTopic}
             onMouseOver={() => {
                 setRaised(true);
@@ -21,17 +22,17 @@ export default function TopicHeader(props) {
                 setRaised(false);
             }}
         >
-            <h4 className="post-title">{props.title}</h4>
-            <p className="post-message">{props.description}</p>
+            <h4 className="topic-title">{props.title}</h4>
+            <p className="topic-message">{props.description}</p>
             <Box className="row">
                 <Link
                     href={"/profile/" + props.ownerName}
                     color="secondary"
-                    className="post-username"
+                    className="topic-username"
                 >
                     {props.ownerName}
                 </Link>
-                <p className="post-date">{props.date}</p>
+                <Date className="topic-date">{props.date}</Date>
             </Box>
         </Card>
     );

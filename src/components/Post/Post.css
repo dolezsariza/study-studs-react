@@ -1,22 +1,27 @@
-.post {
+.post,
+.topic {
     margin: 20px 0;
     padding: 10px;
 }
 
-.post-title {
+.post-title,
+.topic-title {
     margin-bottom: 10px;
 }
 
-.post-message {
+.post-message,
+.topic-message {
     margin-bottom: 10px;
 }
 
-.post-username {
+.post-username,
+.topic-username {
     width: 30%;
     text-align: left;
 }
 
-.post-date {
+.post-date,
+.topic-date {
     width: 70%;
     text-align: right;
     color: rgba(128, 128, 128, 0.404);
