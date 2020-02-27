@@ -1,16 +1,18 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { postData } from "../../store/actions/repositoryActions";
+import { postData, removeData } from "../../store/actions/repositoryActions";
 import { logout } from "../../store/actions/logInActions";
 
 function Logout(props) {
-
     const url = "/logout";
     const response = props.response;
 
     useEffect(() => {
-        props.onPostData(url,{},{ ...props })
-    })
+        props.onPostData(url, {}, { ...props });
+        return () => {
+            props.onRemoveData();
+        };
+    }, []);
 
     useEffect(() => {
         if (response) {
@@ -20,9 +22,9 @@ function Logout(props) {
                 props.history.push("/");
             }
         }
-    }, [response])
+    }, [response]);
 
-    console.log(response)
+    console.log(response);
 
     return null;
 }
@@ -37,6 +39,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
         onLogout: () => dispatch(logout()),
+        onRemoveData: () => dispatch(removeData())
     };
 };
 

@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect } from "react";
 import { TextField, Box, Button } from "@material-ui/core";
 import "./Login.css";
 import { connect } from "react-redux";
-import { postData } from "../../store/actions/repositoryActions";
+import { postData, removeData } from "../../store/actions/repositoryActions";
 import { login } from "../../store/actions/logInActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon";
@@ -15,7 +15,6 @@ function Login(props) {
     const [onPassword, setOnPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const url = "/Login";
 
     const tryLogin = () => {
         setLoading(true);
@@ -29,7 +28,7 @@ function Login(props) {
                     if (response.status === 200) {
                         console.log("Logged in! ");
                         props.history.push("/");
-                        props.onLogin();
+                        props.onLogin(response.data);
                     }
                 }
             })
@@ -45,10 +44,22 @@ function Login(props) {
         }
     }, [error]);
 
+    useEffect(() => {
+        return () => {
+            props.onRemoveData();
+        };
+    }, []);
+
     return (
         <Fragment>
             {error.length > 0 ? (
-                <InfoBox showError={true} errorMessage={error} />
+                <InfoBox
+                    showError={true}
+                    errorMessage={error}
+                    onClose={() => {
+                        setError("");
+                    }}
+                />
             ) : (
                 <Fragment />
             )}
@@ -125,8 +136,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onLogin: () => dispatch(login()),
-        onCloseError: () => dispatch(closeErrorInfo())
+        onLogin: username => dispatch(login(username)),
+        onCloseError: () => dispatch(closeErrorInfo()),
+        onRemoveData: () => dispatch(removeData())
     };
 };
 

@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect } from "react";
 import { TextField, Box, Button } from "@material-ui/core";
 import "../Login/Login.css";
 import { connect } from "react-redux";
-import { postData } from "../../store/actions/repositoryActions";
+import { postData, removeData } from "../../store/actions/repositoryActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import "./Register.css";
@@ -101,6 +101,11 @@ function Register(props) {
         validateEmail();
     }, [email]);
 
+    useEffect(() => {
+        return () => {
+            props.onRemoveData();
+        };
+    }, []);
     return (
         <Fragment>
             {error ? (
@@ -108,7 +113,16 @@ function Register(props) {
             ) : (
                 <Fragment />
             )}
-            {success ? <InfoBox showSuccess={true} /> : <Fragment />}
+            {success ? (
+                <InfoBox
+                    showSuccess={true}
+                    onClose={() => {
+                        setSuccess(false);
+                    }}
+                />
+            ) : (
+                <Fragment />
+            )}
             <div className="page-container">
                 <form noValidate autoComplete="off">
                     <Box className="textfield-container">
@@ -196,7 +210,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onCloseError: () => dispatch(closeErrorInfo())
+        onCloseError: () => dispatch(closeErrorInfo()),
+        onRemoveData: () => dispatch(removeData())
     };
 };
 

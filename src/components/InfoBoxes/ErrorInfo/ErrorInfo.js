@@ -20,7 +20,14 @@ const ErrorInfo = props => {
                                   display: "none"
                               }
                     }
-                    onClose={props.onCloseError}
+                    onClose={() => {
+                        if (props.onClose) {
+                            props.onClose();
+                        }
+                        if (props.onCloseError) {
+                            props.onCloseError();
+                        }
+                    }}
                 >
                     <AlertTitle>{props.HeaderText}</AlertTitle>
                     {props.bodyText}
