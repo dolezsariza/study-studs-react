@@ -6,6 +6,9 @@ import { connect } from "react-redux";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import { postData, removeData } from "../../store/actions/repositoryActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+import axios from "../../axios/axios";
 
 function PostToTopic(props) {
     let { id } = useParams();
@@ -13,21 +16,21 @@ function PostToTopic(props) {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState("");
+    const [user, setUser] = useContext(UserContext);
+    const [response, setResponse] = useState(null);
 
     const tryPost = () => {
         if (id) {
             const url = "topics/" + id;
             setLoading(true);
             if (title.length > 0 && message.length > 0) {
-                props.onPostData(
-                    url,
-                    {
-                        ownerId: props.userId,
+                axios
+                    .post(url, {
+                        ownerId: user.userId,
                         title: title,
                         message: message
-                    },
-                    props
-                );
+                    })
+                    .then(resp => setResponse(resp));
             } else {
                 setLoading(false);
             }
@@ -35,22 +38,16 @@ function PostToTopic(props) {
     };
 
     useEffect(() => {
-        if (props.response) {
+        if (response) {
             setLoading(false);
 
-            if (props.response.status == 200) {
+            if (response.status === 200) {
                 props.history.push("/topic/" + id);
             }
         }
-    }, [props.response]);
+    }, [response]);
 
-    useEffect(() => {
-        return () => {
-            props.onRemoveData();
-        };
-    }, []);
-
-    if (props.userId == "" || props.userId == null) {
+    if (user.userId == "" || user.userId == null) {
         return (
             <div className="page-container">
                 <h4>You need to be logged in to post!</h4>
@@ -60,21 +57,6 @@ function PostToTopic(props) {
 
     return (
         <Fragment>
-            {props.error ? (
-                <InfoBox showError={true} errorMessage={props.error} />
-            ) : (
-                <Fragment />
-            )}
-            {success ? (
-                <InfoBox
-                    showSuccess={true}
-                    onClose={() => {
-                        setSuccess(false);
-                    }}
-                />
-            ) : (
-                <Fragment />
-            )}
             <h3>Post to topic</h3>
             <div className="page-container">
                 <form
@@ -136,20 +118,4 @@ function PostToTopic(props) {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        response: state.repository.response,
-        error: state.errorHandler.errorMessage,
-        userId: state.loggedIn.userId
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onCloseError: () => dispatch(closeErrorInfo()),
-        onRemoveData: () => dispatch(removeData())
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostToTopic);
+export default PostToTopic;

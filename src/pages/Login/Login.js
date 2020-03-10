@@ -9,12 +9,15 @@ import StudentIcon from "../../components/StudentIcon/StudentIcon";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import axios from "../../axios/axios";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 function Login(props) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [onPassword, setOnPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [user, setUser] = useContext(UserContext);
 
     const tryLogin = () => {
         setLoading(true);
@@ -27,12 +30,18 @@ function Login(props) {
                 if (response) {
                     if (response.status === 200) {
                         console.log("Logged in! ");
+                        console.log(response);
+                        setUser({
+                            userName: response.data[1],
+                            userId: response.data[0],
+                            loggedIn: true
+                        });
                         props.history.push("/");
-                        props.onLogin(response.data);
                     }
                 }
             })
             .catch(error => {
+                console.log(error);
                 setError(error.response.data);
             })
             .then(setLoading(false));
@@ -43,12 +52,6 @@ function Login(props) {
             setTimeout(() => setError(""), 3000);
         }
     }, [error]);
-
-    useEffect(() => {
-        return () => {
-            props.onRemoveData();
-        };
-    }, []);
 
     return (
         <Fragment>
@@ -126,20 +129,4 @@ function Login(props) {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        response: state.repository.response,
-        error: state.errorHandler.errorMessage
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onLogin: username => dispatch(login(username)),
-        onCloseError: () => dispatch(closeErrorInfo()),
-        onRemoveData: () => dispatch(removeData())
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

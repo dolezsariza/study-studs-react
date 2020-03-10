@@ -17,12 +17,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { basic } from "./themes/themes";
 import Profile from "./pages/Profile/Profile";
 import Editprofile from "./pages/EditProfile/Editprofile";
+import UserProvider from "./context/UserContext";
 
 function App(props) {
     return (
-        <div className="App">
-            <Content />
-        </div>
+        <UserProvider>
+            <div className="App">
+                <Content />
+            </div>
+        </UserProvider>
     );
 }
 

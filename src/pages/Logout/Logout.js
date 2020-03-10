@@ -1,24 +1,23 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { postData, removeData } from "../../store/actions/repositoryActions";
-import { logout } from "../../store/actions/logInActions";
+import React, { useEffect, useState, useContext } from "react";
+import axios from "../../axios/axios";
+import { deleteState } from "../../localStorage";
+import { UserContext } from "../../context/UserContext";
 
 function Logout(props) {
     const url = "/logout";
-    const response = props.response;
+    const [response, setResponse] = useState("");
+    const [user, setUser] = useContext(UserContext);
 
     useEffect(() => {
-        props.onPostData(url, {}, { ...props });
-        return () => {
-            props.onRemoveData();
-        };
+        axios.post(url).then(resp => setResponse(resp));
     }, []);
 
     useEffect(() => {
         if (response) {
             if (response.status === 200) {
-                props.onLogout();
                 console.log("Logged out! ");
+                deleteState();
+                setUser({ userName: "", userId: "", loggedIn: false });
                 props.history.push("/");
             }
         }
@@ -29,18 +28,4 @@ function Logout(props) {
     return null;
 }
 
-const mapStateToProps = state => {
-    return {
-        response: state.repository.response
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onLogout: () => dispatch(logout()),
-        onRemoveData: () => dispatch(removeData())
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
+export default Logout;

@@ -37,14 +37,4 @@ const ErrorInfo = props => {
     } else return null;
 };
 
-const mapStateToProps = state => {
-    return {};
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onCloseError: () => dispatch(closeErrorInfo())
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ErrorInfo);
+export default ErrorInfo;
