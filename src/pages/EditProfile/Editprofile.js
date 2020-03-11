@@ -1,50 +1,68 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment, useEffect, useContext } from "react";
 import { getData } from "../../store/actions/repositoryActions";
 import { connect } from "react-redux";
 import { TextField, Grid, Button } from "@material-ui/core";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 import axios from "../../axios/axios";
 
+import { UserContext } from "../../context/UserContext";
+
 function Editprofile(props) {
-    const [firstName, setFirstName] = useState(props.firstName);
-    const [lastName, setLastName] = useState(props.lastName);
-    const [nickName, setNickName] = useState(props.nickName);
-    const [school, setSchool] = useState(props.school);
-    const [city, setCity] = useState(props.city);
-    const [introduction, setIntroduction] = useState(props.introduction);
-    const [interests, setInterests] = useState(props.interests);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [nickName, setNickName] = useState("");
+    const [school, setSchool] = useState("");
+    const [city, setCity] = useState("");
+    const [introduction, setIntroduction] = useState("");
+    const [interests, setInterests] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const url = `/profile/${props.currentUserName}`;
+    const [user, setUser] = useContext(UserContext);
+    //get username from context
+    const url = `/profile/${user.userName}`;
+
     const tryEdit = () => {
         setLoading(true);
         axios
-            .put(
-                url,
-                {
-                    firstName,
-                    lastName,
-                    nickName,
-                    school,
-                    city,
-                    introduction,
-                    interests
-                },
-                props
-            )
+            .put(url, {
+                firstName,
+                lastName,
+                nickName,
+                school,
+                city,
+                introduction,
+                interests
+            })
             .then(response => {
                 if (response.status === 200) {
                     console.log("Updated! ");
                     setLoading(false);
-                    props.history.push(`/profile/${props.currentUserName}`);
+                    props.history.push(`/profile/${user.userName}`);
                 }
                 setLoading(false);
             });
     };
 
     useEffect(() => {
-        props.onGetData(url, props);
-    }, [props, url]);
+        axios.get(url).then(data => {
+            const {
+                firstName,
+                lastName,
+                nickName,
+                school,
+                city,
+                introduction,
+                interests
+            } = data;
+            setFirstName(firstName);
+            setLastName(lastName);
+            setSchool(school);
+            setNickName(nickName);
+            setCity(city);
+            setIntroduction(introduction);
+            setInterests(interests);
+        });
+    }, []);
 
     return (
         <Fragment>
@@ -190,17 +208,5 @@ function Editprofile(props) {
         </Fragment>
     );
 }
-const mapStateToProps = state => {
-    return {
-        ...state.repository.data,
-        currentUserName: state.loggedIn.userName
-    };
-};
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onGetData: (url, props) => dispatch(getData(url, props))
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Editprofile);
+export default Editprofile;

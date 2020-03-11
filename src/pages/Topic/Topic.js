@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
@@ -7,22 +7,22 @@ import { connect } from "react-redux";
 import { getData, removeData } from "../../store/actions/repositoryActions";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import Date from "../../components/Date/Date";
+import axios from "../../axios/axios";
 
 function Topic(props) {
-    const posts = props.data ? props.data.posts : null;
+    const [data, setData] = useState(null);
+
+    const posts = data ? data.posts : null;
     if (posts) posts.reverse();
 
     const { id } = useParams();
 
     useEffect(() => {
         const url = "/topics/" + id;
-        props.onGetData(url, props);
-        return () => {
-            props.onRemoveData();
-        };
+        axios.get(url).then(resp => setData(resp.data));
     }, []);
 
-    if (!props.data) {
+    if (!data) {
         return null;
     }
 
@@ -30,18 +30,18 @@ function Topic(props) {
         <Box className="topic">
             <Box className="topic-info">
                 <Box className="row">
-                    <h2 className="topic-title">{props.data.title}</h2>
+                    <h2 className="topic-title">{data.title}</h2>
                     <div className="topic-username">
                         <Link
                             color="secondary"
-                            href={"/profile/" + props.data.ownerName}
+                            href={"/profile/" + data.ownerName}
                         >
-                            {props.data.ownerName}
+                            {data.ownerName}
                         </Link>
                     </div>
                 </Box>
                 <Box className="row">
-                    <p className="topic-message">{props.data.description}</p>
+                    <p className="topic-message">{data.description}</p>
                 </Box>
                 <Box className="row">
                     <Box className="topic-actions">
@@ -55,8 +55,8 @@ function Topic(props) {
                             Add Post
                         </Button>
                     </Box>
-                    {props.data.date ? (
-                        <Date className="post-date">{props.data.date}</Date>
+                    {data.date ? (
+                        <Date className="post-date">{data.date}</Date>
                     ) : (
                         <Fragment />
                     )}
@@ -69,19 +69,4 @@ function Topic(props) {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        data: state.repository.data,
-        error: state.errorHandler.errorMessage
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onGetData: (url, props) => dispatch(getData(url, props)),
-        onCloseError: () => dispatch(closeErrorInfo()),
-        onRemoveData: () => dispatch(removeData())
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Topic);
+export default Topic;

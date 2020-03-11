@@ -5,14 +5,17 @@ import { getData } from "../../store/actions/repositoryActions";
 import { useParams, NavLink } from "react-router-dom";
 import Datagrid from "./DataGrid";
 import { Button } from "@material-ui/core";
+import { useState } from "react";
+import axios from "../../axios/axios";
 
 function Profile(props) {
     const { username } = useParams();
     const url = `/profile/${username}`;
+    const [data, setData] = useState(null);
 
     useEffect(() => {
-        props.onGetData(url, props);
-    }, [props, url]);
+        axios.get(url).then(resp => setData(resp.data));
+    }, []);
 
     if (props.firstName === null) {
         return (
@@ -31,7 +34,7 @@ function Profile(props) {
     }
     return (
         <Fragment>
-            <Datagrid data={props} />
+            {data ? <Datagrid data={data} /> : <Fragment />}
             <div className="btn">
                 <NavLink to="/profile/edit" exact>
                     <Button
@@ -46,19 +49,7 @@ function Profile(props) {
         </Fragment>
     );
 }
-const mapStateToProps = state => {
-    return {
-        ...state.repository.data,
-        currentUserName: state.loggedIn.userName
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onGetData: (url, props) => dispatch(getData(url, props))
-    };
-};
 
 //Ha van topic, akkor topic gomb a ~/topics
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;

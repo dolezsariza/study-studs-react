@@ -1,6 +1,6 @@
 export const loadState = () => {
     try {
-        const serializedState = localStorage.getItem("state");
+        const serializedState = localStorage.getItem("study-stud-state");
         if (serializedState === null) return undefined;
         return JSON.parse(serializedState);
     } catch (err) {
@@ -11,8 +11,12 @@ export const loadState = () => {
 export const saveState = state => {
     try {
         const serializedState = JSON.stringify(state);
-        localStorage.setItem("state", serializedState);
+        localStorage.setItem("study-stud-state", serializedState);
     } catch (err) {
         console.log(err);
     }
+};
+
+export const deleteState = () => {
+    localStorage.removeItem("study-stud-state");
 };

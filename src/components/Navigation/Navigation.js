@@ -1,12 +1,15 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
 import "./Navigation.css";
+import { UserContext } from "../../context/UserContext";
 
 export default function Navigation() {
-    const loggedIn = useSelector(state => state.loggedIn.loggedIn);
-    const username = useSelector(state => state.loggedIn.userName);
+    const [user, setUser] = useContext(UserContext);
+
+    console.log(user);
+    if (!user) return null;
 
     return (
         <nav>
@@ -21,7 +24,7 @@ export default function Navigation() {
                 </li>
             </ul>
             <ul className="nav-links nav-links-right">
-                {!loggedIn ? (
+                {!user.loggedIn ? (
                     <Fragment>
                         <li>
                             <div className="link-wrapper">
@@ -49,7 +52,7 @@ export default function Navigation() {
                     <Fragment>
                         <li>
                             <div className="link-wrapper">
-                                <NavLink to={`/profile/${username}`} exact>
+                                <NavLink to={`/profile/${user.username}`} exact>
                                     <Button variant="contained" color="primary">
                                         Profile
                                     </Button>

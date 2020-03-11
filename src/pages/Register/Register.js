@@ -7,6 +7,9 @@ import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import "./Register.css";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
+import axios from "../../axios/axios";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
 function Register(props) {
     const [userName, setUserName] = useState("");
@@ -19,6 +22,9 @@ function Register(props) {
     const [loading, setLoading] = useState(false);
     const url = "/register";
 
+    const [response, setResponse] = useState(null);
+    const [user, setUser] = useContext(UserContext);
+
     const tryRegister = () => {
         const valid =
             userNameError.length === 0 &&
@@ -27,15 +33,16 @@ function Register(props) {
 
         if (valid) {
             setLoading(true);
-            props.onPostData(
-                url,
-                {
+            axios
+                .post(url, {
                     userName,
                     password,
                     email
-                },
-                props
-            );
+                })
+                .then(response => {
+                    console.log(response);
+                    setResponse(response);
+                });
         }
     };
 
@@ -67,9 +74,6 @@ function Register(props) {
         }
     };
 
-    const error = props.error;
-    const response = props.response;
-
     useEffect(() => {
         if (response) {
             if (response.status === 201) {
@@ -80,14 +84,6 @@ function Register(props) {
             setLoading(false);
         }
     }, [response]);
-
-    useEffect(() => {
-        if (error) {
-            setTimeout(props.onCloseError, 3000);
-            setLoading(false);
-        }
-        setLoading(false);
-    }, [error, props]);
 
     useEffect(() => {
         validateUserName();
@@ -101,28 +97,8 @@ function Register(props) {
         validateEmail();
     }, [email]);
 
-    useEffect(() => {
-        return () => {
-            props.onRemoveData();
-        };
-    }, []);
     return (
         <Fragment>
-            {error ? (
-                <InfoBox showError={true} errorMessage={error} />
-            ) : (
-                <Fragment />
-            )}
-            {success ? (
-                <InfoBox
-                    showSuccess={true}
-                    onClose={() => {
-                        setSuccess(false);
-                    }}
-                />
-            ) : (
-                <Fragment />
-            )}
             <div className="page-container">
                 <form noValidate autoComplete="off">
                     <Box className="textfield-container">
@@ -200,19 +176,4 @@ function Register(props) {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        response: state.repository.response,
-        error: state.errorHandler.errorMessage
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onCloseError: () => dispatch(closeErrorInfo()),
-        onRemoveData: () => dispatch(removeData())
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default Register;
