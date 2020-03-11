@@ -4,8 +4,6 @@ import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
 import { Box, Button, Link } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getData, removeData } from "../../store/actions/repositoryActions";
-import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import Date from "../../components/Date/Date";
 import axios from "../../axios/axios";
 

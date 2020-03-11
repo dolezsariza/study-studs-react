@@ -1,7 +1,5 @@
 import "./Profile.css";
 import React, { useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import { getData } from "../../store/actions/repositoryActions";
 import { useParams, NavLink } from "react-router-dom";
 import Datagrid from "./DataGrid";
 import { Button } from "@material-ui/core";

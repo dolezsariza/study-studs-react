@@ -1,6 +1,4 @@
 import React, { useState, Fragment, useEffect, useContext } from "react";
-import { getData } from "../../store/actions/repositoryActions";
-import { connect } from "react-redux";
 import { TextField, Grid, Button } from "@material-ui/core";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 import axios from "../../axios/axios";

@@ -1,12 +1,8 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { TextField, Box, Button } from "@material-ui/core";
 import "./Login.css";
-import { connect } from "react-redux";
-import { postData, removeData } from "../../store/actions/repositoryActions";
-import { login } from "../../store/actions/logInActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import StudentIcon from "../../components/StudentIcon/StudentIcon";
-import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import axios from "../../axios/axios";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 import { useContext } from "react";
@@ -55,17 +51,11 @@ function Login(props) {
 
     return (
         <Fragment>
-            {error.length > 0 ? (
-                <InfoBox
-                    showError={true}
-                    errorMessage={error}
-                    onClose={() => {
-                        setError("");
-                    }}
-                />
-            ) : (
-                <Fragment />
-            )}
+            <InfoBox
+                showError={error.length > 0}
+                errorMessage={error}
+                onClose={() => setError("")}
+            />
             <div
                 className="page-container"
                 onClick={e => {

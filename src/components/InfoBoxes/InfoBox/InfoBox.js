@@ -8,19 +8,21 @@ const InfoBox = props => {
         <Fragment>
             <div>
                 <SuccessInfo
-                    onClose={props.onClose}
                     show={props.showSuccess}
                     headerText={"Success message"}
                     bodyText={"Action completed successfully"}
+                    onClose={props.onClose}
+                    duration={props.duration}
                 />
             </div>
             <div>
                 <ErrorInfo
-                    onClose={props.onClose}
                     className="error-alert"
                     show={props.showError}
                     headerText={"Error message"}
                     bodyText={props.errorMessage}
+                    onClose={props.onClose}
+                    duration={props.duration}
                 />
             </div>
         </Fragment>
