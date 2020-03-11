@@ -6,6 +6,7 @@ import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import axios from "../../axios/axios";
+import history from "../../history";
 
 function PostToTopic(props) {
     let { id } = useParams();
@@ -39,7 +40,7 @@ function PostToTopic(props) {
             setLoading(false);
 
             if (response.status === 200) {
-                props.history.push("/topic/" + id);
+                history.push("/topic/" + id);
             }
         }
     }, [response]);

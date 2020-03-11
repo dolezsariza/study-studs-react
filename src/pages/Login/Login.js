@@ -7,6 +7,8 @@ import axios from "../../axios/axios";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import history from "../../history";
+
 function Login(props) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -32,7 +34,7 @@ function Login(props) {
                             userId: response.data[0],
                             loggedIn: true
                         });
-                        props.history.push("/");
+                        history.push("/");
                     }
                 }
             })

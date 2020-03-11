@@ -12,7 +12,6 @@ function Home(props) {
         axios.get(url).then(resp => {
             const newTopics = resp.data.map(topic => (
                 <TopicHeader
-                    history={props.history}
                     key={topic.id}
                     id={topic.id}
                     ownerName={topic.ownerName}

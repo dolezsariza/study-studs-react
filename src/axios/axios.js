@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from "../history";
 
 const API_URL = "http://localhost:5000";
 const TIMEOUT = 5000;
@@ -23,10 +24,10 @@ const requestHandler = request => {
 };
 
 //response interceptor anything outside 2xx range
-const errorHandler = (error, user, history) => {
+const errorHandler = (error, user) => {
     if (isHandlerEnabled(error.config)) {
         if (error.response) {
-            if(error.response.status == 500){
+            if (error.response.status == 500) {
                 history.push("/500");
             }
             // The request was made and the server responded with a status code
@@ -57,12 +58,12 @@ const successHandler = response => {
 };
 
 export const setup = {
-    setupInterceptors: (history, userContext) => {
+    setupInterceptors: userContext => {
         instance.interceptors.request.use(request => requestHandler(request));
 
         instance.interceptors.response.use(
             response => successHandler(response),
-            error => errorHandler(error, userContext, history)
+            error => errorHandler(error, userContext)
         );
     }
 };

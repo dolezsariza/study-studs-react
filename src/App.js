@@ -13,7 +13,7 @@ import NoConnection from "./pages/errorPages/NoConnection/NoConnection";
 import InternalServer from "./pages/errorPages/InternalServer/InternalServer";
 import NotFound from "./pages/errorPages/NotFound/NotFound";
 import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
-import createHistory from "history/createBrowserHistory";
+import history from "./history";
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
 import { basic } from "./themes/themes";
@@ -33,9 +33,8 @@ function App(props) {
 }
 
 function Content() {
-    const history = createHistory();
     const userContext = useContext(UserContext);
-    setup.setupInterceptors(history, userContext);
+    setup.setupInterceptors(userContext);
     return (
         <Router history={history}>
             <ThemeProvider theme={basic}>
