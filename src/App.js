@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
 import { Container, ThemeProvider } from "@material-ui/core";
 import Header from "./layout/Header";
@@ -13,11 +13,14 @@ import NoConnection from "./pages/errorPages/NoConnection/NoConnection";
 import InternalServer from "./pages/errorPages/InternalServer/InternalServer";
 import NotFound from "./pages/errorPages/NotFound/NotFound";
 import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import history from "./history";
+import { Route, Switch } from "react-router-dom";
+import { Router } from "react-router";
 import { basic } from "./themes/themes";
 import Profile from "./pages/Profile/Profile";
 import Editprofile from "./pages/EditProfile/Editprofile";
-import UserProvider from "./context/UserContext";
+import UserProvider, { UserContext } from "./context/UserContext";
+import { setup } from "./axios/axios";
 
 function App(props) {
     return (
@@ -30,8 +33,10 @@ function App(props) {
 }
 
 function Content() {
+    const userContext = useContext(UserContext);
+    setup.setupInterceptors(userContext);
     return (
-        <Router>
+        <Router history={history}>
             <ThemeProvider theme={basic}>
                 <Header />
                 <Container>

@@ -1,9 +1,8 @@
 import React, { useState, Fragment, useEffect, useContext } from "react";
-import { getData } from "../../store/actions/repositoryActions";
-import { connect } from "react-redux";
 import { TextField, Grid, Button } from "@material-ui/core";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 import axios from "../../axios/axios";
+import history from "../../history";
 
 import { UserContext } from "../../context/UserContext";
 
@@ -37,7 +36,7 @@ function Editprofile(props) {
                 if (response.status === 200) {
                     console.log("Updated! ");
                     setLoading(false);
-                    props.history.push(`/profile/${user.userName}`);
+                    history.push(`/profile/${user.userName}`);
                 }
                 setLoading(false);
             });

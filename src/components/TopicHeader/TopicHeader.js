@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Card, Link, Box } from "@material-ui/core";
 import "./TopicHeader.css";
 import Date from "../Date/Date";
+import history from "../../history";
 
 export default function TopicHeader(props) {
     const [raised, setRaised] = useState(false);
 
     const toTopic = e => {
         console.log(e.currentTarget);
-        props.history.push("/topic/" + props.id);
+        history.push("/topic/" + props.id);
     };
 
     return (
@@ -30,7 +31,7 @@ export default function TopicHeader(props) {
                     <Link
                         onClick={e => {
                             e.stopPropagation();
-                            props.history.push("/profile/" + props.ownerName);
+                            history.push("/profile/" + props.ownerName);
                         }}
                         color="secondary"
                         className="username-link"

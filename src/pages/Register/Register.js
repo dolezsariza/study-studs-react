@@ -2,9 +2,7 @@ import React, { useState, Fragment, useEffect } from "react";
 import { TextField, Box, Button } from "@material-ui/core";
 import "../Login/Login.css";
 import { connect } from "react-redux";
-import { postData, removeData } from "../../store/actions/repositoryActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
-import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import "./Register.css";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 import axios from "../../axios/axios";
@@ -25,6 +23,8 @@ function Register(props) {
     const [response, setResponse] = useState(null);
     const [user, setUser] = useContext(UserContext);
 
+    const [error, setError] = useState("");
+
     const tryRegister = () => {
         const valid =
             userNameError.length === 0 &&
@@ -42,7 +42,13 @@ function Register(props) {
                 .then(response => {
                     console.log(response);
                     setResponse(response);
-                });
+                })
+                .catch(err => {
+                    setError(err.response.data);
+                })
+                .then(()=>{
+                    setLoading(false);
+                })
         }
     };
 
@@ -79,9 +85,7 @@ function Register(props) {
             if (response.status === 201) {
                 console.log("Registered! ");
                 setSuccess(true);
-                setLoading(false);
             }
-            setLoading(false);
         }
     }, [response]);
 
@@ -100,6 +104,15 @@ function Register(props) {
     return (
         <Fragment>
             <div className="page-container">
+                <InfoBox
+                    showSuccess={success}
+                    onClose={() => setSuccess(false)}
+                />
+                <InfoBox
+                    showError={error.length > 0}
+                    errorMessage={error}
+                    onClose={() => setError("")}
+                />
                 <form noValidate autoComplete="off">
                     <Box className="textfield-container">
                         <TextField

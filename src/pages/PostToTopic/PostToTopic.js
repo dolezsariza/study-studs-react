@@ -2,13 +2,11 @@ import React, { useState, Fragment, useEffect } from "react";
 import { Box, TextField, Button } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
-import { connect } from "react-redux";
-import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
-import { postData, removeData } from "../../store/actions/repositoryActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import axios from "../../axios/axios";
+import history from "../../history";
 
 function PostToTopic(props) {
     let { id } = useParams();
@@ -42,7 +40,7 @@ function PostToTopic(props) {
             setLoading(false);
 
             if (response.status === 200) {
-                props.history.push("/topic/" + id);
+                history.push("/topic/" + id);
             }
         }
     }, [response]);

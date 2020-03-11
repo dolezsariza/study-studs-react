@@ -4,10 +4,9 @@ import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
 import { Box, Button, Link } from "@material-ui/core";
 import { connect } from "react-redux";
-import { getData, removeData } from "../../store/actions/repositoryActions";
-import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import Date from "../../components/Date/Date";
 import axios from "../../axios/axios";
+import history from "../../history";
 
 function Topic(props) {
     const [data, setData] = useState(null);
@@ -49,7 +48,7 @@ function Topic(props) {
                             color="primary"
                             variant="contained"
                             onClick={() => {
-                                props.history.push("/topic/" + id + "/post");
+                                history.push("/topic/" + id + "/post");
                             }}
                         >
                             Add Post

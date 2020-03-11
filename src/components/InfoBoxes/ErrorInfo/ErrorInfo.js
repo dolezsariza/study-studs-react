@@ -1,10 +1,26 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { connect } from "react-redux";
-import { closeErrorInfo } from "../../../store/actions/errorHandlerActions";
+import { useState } from "react";
 
 const ErrorInfo = props => {
-    if (props.show) {
+    const [show, setShow] = useState(props.show);
+
+    useEffect(() => {
+        setShow(props.show);
+    }, [props]);
+
+    const close = () => {
+        props.onClose();
+        setShow(false);
+    };
+
+    useEffect(() => {
+        if (props.show) {
+            setTimeout(close, props.duration ? props.duration : 1500);
+        }
+    }, [props.show]);
+
+    if (show) {
         return (
             <div className="error-alert">
                 <Alert
@@ -20,14 +36,7 @@ const ErrorInfo = props => {
                                   display: "none"
                               }
                     }
-                    onClose={() => {
-                        if (props.onClose) {
-                            props.onClose();
-                        }
-                        if (props.onCloseError) {
-                            props.onCloseError();
-                        }
-                    }}
+                    onClose={close}
                 >
                     <AlertTitle>{props.HeaderText}</AlertTitle>
                     {props.bodyText}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from "../history";
 
 const API_URL = "http://localhost:5000";
 const TIMEOUT = 5000;
@@ -23,15 +24,19 @@ const requestHandler = request => {
 };
 
 //response interceptor anything outside 2xx range
-const errorHandler = error => {
+const errorHandler = (error, user) => {
     if (isHandlerEnabled(error.config)) {
         if (error.response) {
+            if (error.response.status == 500) {
+                history.push("/500");
+            }
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
         } else if (error.request) {
+            history.push("/no-connection");
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
@@ -52,11 +57,15 @@ const successHandler = response => {
     return response;
 };
 
-instance.interceptors.request.use(request => requestHandler(request));
+export const setup = {
+    setupInterceptors: userContext => {
+        instance.interceptors.request.use(request => requestHandler(request));
 
-instance.interceptors.response.use(
-    response => successHandler(response),
-    error => errorHandler(error)
-);
+        instance.interceptors.response.use(
+            response => successHandler(response),
+            error => errorHandler(error, userContext)
+        );
+    }
+};
 
 export default instance;
