@@ -7,8 +7,6 @@ import { UserContext } from "../../context/UserContext";
 
 export default function Navigation() {
     const [user, setUser] = useContext(UserContext);
-
-    console.log(user);
     if (!user) return null;
 
     return (
@@ -52,7 +50,7 @@ export default function Navigation() {
                     <Fragment>
                         <li>
                             <div className="link-wrapper">
-                                <NavLink to={`/profile/${user.username}`} exact>
+                                <NavLink to={`/profile/${user.userName}`} exact>
                                     <Button variant="contained" color="primary">
                                         Profile
                                     </Button>
