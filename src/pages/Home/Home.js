@@ -10,16 +10,18 @@ function Home(props) {
     useEffect(() => {
         const url = "/topics";
         axios.get(url).then(resp => {
-            const newTopics = resp.data.map(topic => (
-                <TopicHeader
-                    key={topic.id}
-                    id={topic.id}
-                    ownerName={topic.ownerName}
-                    title={topic.title}
-                    description={topic.description}
-                    date={topic.date}
-                />
-            ));
+            const newTopics = resp.data
+                ? resp.data.map(topic => (
+                      <TopicHeader
+                          key={topic.id}
+                          id={topic.id}
+                          ownerName={topic.ownerName}
+                          title={topic.title}
+                          description={topic.description}
+                          date={topic.date}
+                      />
+                  ))
+                : null;
             setTopics(newTopics);
         });
     }, []);
