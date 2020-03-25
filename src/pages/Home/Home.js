@@ -10,7 +10,8 @@ function Home(props) {
     useEffect(() => {
         const url = "/groups";
         axios.get(url).then(resp => {
-            const newGroups = resp.data.map(group => (
+            const newGroups = resp.data 
+            ? resp.data.map(group => (
                 <GroupHeader
                     key={group.id}
                     id={group.id}
@@ -19,7 +20,8 @@ function Home(props) {
                     description={group.description}
                     date={group.date}
                 />
-            ));
+            ))
+            : null;
             setGroups(newGroups);
         });
     }, []);
