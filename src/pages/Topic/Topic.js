@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
 import { Box, Button, Link } from "@material-ui/core";
-import { connect } from "react-redux";
 import Date from "../../components/Date/Date";
 import axios from "../../axios/axios";
 import history from "../../history";
@@ -16,10 +15,12 @@ function Topic(props) {
 
     const { id } = useParams();
 
+    const [file, setFile] = useState(null);
+
     useEffect(() => {
         const url = "/topics/" + id;
         axios.get(url).then(resp => setData(resp.data));
-    }, []);
+    }, [id]);
 
     if (!data) {
         return null;
@@ -52,6 +53,16 @@ function Topic(props) {
                             }}
                         >
                             Add Post
+                        </Button>
+                        <Button
+                            id="uploadBtn"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                                history.push("/" + id + "/fileupload");
+                            }}
+                        >
+                            Upload
                         </Button>
                     </Box>
                     {data.date ? (
