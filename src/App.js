@@ -13,7 +13,7 @@ import NoConnection from "./pages/errorPages/NoConnection/NoConnection";
 import InternalServer from "./pages/errorPages/InternalServer/InternalServer";
 import NotFound from "./pages/errorPages/NotFound/NotFound";
 import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
-import AllGroups from "./pages/AllGroups/AllGroups";
+import AllGroups from "./pages/GroupWithTopics/GroupWithTopics";
 import history from "./history";
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
