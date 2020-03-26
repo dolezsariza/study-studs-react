@@ -15,8 +15,6 @@ function Topic(props) {
 
     const { id } = useParams();
 
-    const [file, setFile] = useState(null);
-
     useEffect(() => {
         const url = "/topics/" + id;
         axios.get(url).then(resp => setData(resp.data));
@@ -59,7 +57,7 @@ function Topic(props) {
                             variant="contained"
                             color="primary"
                             onClick={() => {
-                                history.push("/" + id + "/fileupload");
+                                history.push("/topic/" + id + "/fileupload");
                             }}
                         >
                             Upload
