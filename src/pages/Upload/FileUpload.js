@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import axios from "../../axios/axios";
+import history from "../../history";
 
-export default function FileUpload(props) {
+export default function FileUpload() {
     const [file, setFile] = useState(null);
     const { id } = useParams();
 
     const upload = () => {
         const data = new FormData();
         data.append("file", file);
-        axios
-            .post("/files", {
-                TopicId: id,
-                FormFile: data
-            })
-            .then(res => console.log(res));
+        data.append("TopicId", id);
+        axios.post("/files", data).then(res => {
+            if (res.status === 201) history.push("/topic/" + id);
+            else history.push("/500");
+        });
     };
 
     return (
@@ -28,7 +28,9 @@ export default function FileUpload(props) {
                             type="file"
                             className="form-control"
                             name="file"
-                            onChange={event => setFile(event.target.files[0])}
+                            onChange={event => {
+                                setFile(event.target.files[0]);
+                            }}
                         />
                     </div>
                     <Button
