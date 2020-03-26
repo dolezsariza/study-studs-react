@@ -49,6 +49,7 @@ function Content() {
                             exact
                             component={FileUpload}
                         />
+                        <Route path="/topic/:id/files" exact />
                         <Route path="/topic/:id/post" component={PostToTopic} />
                         <Route path="/topic/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
