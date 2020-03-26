@@ -44,12 +44,13 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        <Route path="/topic/:id/post" component={PostToTopic} />
-                        <Route path="/topic/:id" component={Topic} />
                         <Route
                             path="/topic/:id/fileupload"
+                            exact
                             component={FileUpload}
                         />
+                        <Route path="/topic/:id/post" component={PostToTopic} />
+                        <Route path="/topic/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/logout" exact component={Logout} />
