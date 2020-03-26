@@ -26,7 +26,7 @@
     color: rgba(128, 128, 128, 0.404);
     text-align: right;
 }
-
-#uploadBtn {
+#topicAddPostBtn,
+#topicFileUploadBtn {
     margin-left: 10px;
 }
