@@ -44,6 +44,26 @@ function Topic(props) {
                 <Box className="row">
                     <Box className="topic-actions">
                         <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                                history.push("/topic/" + id + "/files");
+                            }}
+                        >
+                            Files
+                        </Button>
+                        <Button
+                            id="topicFileUploadBtn"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                                history.push("/topic/" + id + "/fileupload");
+                            }}
+                        >
+                            Upload File
+                        </Button>
+                        <Button
+                            id="topicAddPostBtn"
                             color="primary"
                             variant="contained"
                             onClick={() => {
@@ -51,16 +71,6 @@ function Topic(props) {
                             }}
                         >
                             Add Post
-                        </Button>
-                        <Button
-                            id="uploadBtn"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                                history.push("/topic/" + id + "/fileupload");
-                            }}
-                        >
-                            Upload
                         </Button>
                     </Box>
                     {data.date ? (
