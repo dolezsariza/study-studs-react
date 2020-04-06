@@ -13,7 +13,7 @@ import NoConnection from "./pages/errorPages/NoConnection/NoConnection";
 import InternalServer from "./pages/errorPages/InternalServer/InternalServer";
 import NotFound from "./pages/errorPages/NotFound/NotFound";
 import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
-import AllGroups from "./pages/GroupWithTopics/GroupWithTopics";
+import GroupWithTopics from "./pages/GroupWithTopics/GroupWithTopics";
 import history from "./history";
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
@@ -44,7 +44,7 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        <Route path="/groups" component={AllGroups} />
+                        <Route path="/groups" component={GroupWithTopics} />
                         <Route path="/topic/:id/post" component={PostToTopic} />
                         <Route path="/topic/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
