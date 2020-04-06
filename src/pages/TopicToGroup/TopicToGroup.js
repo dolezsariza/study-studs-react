@@ -148,20 +148,21 @@ function TopicToGroup(props) {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        response: state.repository.response,
-        error: state.errorHandler.errorMessage,
-        userId: state.loggedIn.userId
-    };
-};
+// const mapStateToProps = state => {
+//     return {
+//         response: state.repository.response,
+//         error: state.errorHandler.errorMessage,
+//         userId: state.loggedIn.userId
+//     };
+// };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onPostData: (url, data, props) => dispatch(postData(url, data, props)),
-        onCloseError: () => dispatch(closeErrorInfo()),
-        onRemoveData: () => dispatch(removeData())
-    };
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
+//         onCloseError: () => dispatch(closeErrorInfo()),
+//         onRemoveData: () => dispatch(removeData())
+//     };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicToGroup);
+//export default connect(mapStateToProps, mapDispatchToProps)(TopicToGroup);
+export default TopicToGroup;
