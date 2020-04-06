@@ -15,6 +15,7 @@ import NotFound from "./pages/errorPages/NotFound/NotFound";
 import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
 import GroupWithTopics from "./pages/GroupWithTopics/GroupWithTopics";
 import TopicToGroup from "./pages/TopicToGroup/TopicToGroup";
+import GroupToSite from "./pages/GroupToSite/GroupToSite";
 import history from "./history";
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
@@ -46,7 +47,7 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        <Route path="/groups" exact component={Home}/>
+                        <Route path="/groups" exact component={GroupToSite}/>
                         <Route
                             path="/topics/:id/fileupload"
                             exact
