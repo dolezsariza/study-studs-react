@@ -14,6 +14,7 @@ import InternalServer from "./pages/errorPages/InternalServer/InternalServer";
 import NotFound from "./pages/errorPages/NotFound/NotFound";
 import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
 import GroupWithTopics from "./pages/GroupWithTopics/GroupWithTopics";
+import TopicToGroup from "./pages/TopicToGroup/TopicToGroup";
 import history from "./history";
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
@@ -45,15 +46,17 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
+                        <Route path="/groups" exact component={Home}/>
                         <Route
-                            path="/topic/:id/fileupload"
+                            path="/topics/:id/fileupload"
                             exact
                             component={FileUpload}
                         />
-                        <Route path="/topic/:id/files" exact />
-                        <Route path="/groups" component={GroupWithTopics} />
-                        <Route path="/topic/:id/post" component={PostToTopic} />
-                        <Route path="/topic/:id" component={Topic} />
+                        <Route path="/topics/:id/files" exact />
+                        <Route path="/groups/:id" exact component={GroupWithTopics} />
+                        <Route path="/groups/:id/topic" component={TopicToGroup}/> 
+                        <Route path="/topics/:id/post" component={PostToTopic} />
+                        <Route path="/topics/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/logout" exact component={Logout} />
