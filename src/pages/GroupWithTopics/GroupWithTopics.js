@@ -1,6 +1,5 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
-import Groups from "../../components/Groups/Groups";
 import { Box, Button, Link } from "@material-ui/core";
 import Topics from "../../components/Topics/Topics";
 import axios from "../../axios/axios";
