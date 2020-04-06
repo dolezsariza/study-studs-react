@@ -50,7 +50,7 @@ function TopicToGroup(props) {
         if (props.response) {
             setLoading(false);
 
-            if (props.response.status == 200) {
+            if (props.response.status === 200) {
                 props.history.push("/group/" + id);
             }
         }
@@ -138,7 +138,7 @@ function TopicToGroup(props) {
                                 type="submit"
                                 onClick={tryTopic}
                             >
-                                Post
+                                Add Topic
                             </Button>
                         )}
                     </Box>
