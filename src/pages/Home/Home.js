@@ -2,6 +2,8 @@ import React, { useEffect, Fragment, useState, useContext } from "react";
 import axios from "../../axios/axios";
 import GroupHeader from "../../components/GroupHeader/GroupHeader";
 import { UserContext } from "../../context/UserContext";
+import { Box, Button, Link } from "@material-ui/core";
+import history from "../../history";
 
 function Home(props) {
     const [user, setUser] = useContext(UserContext);
@@ -32,6 +34,16 @@ function Home(props) {
         user.loggedIn ? (
             <Fragment>
                 <h2>Groups</h2>
+                <Button
+                    id="siteAddGroupBtn"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => {
+                        history.push("/groups");
+                    }}
+                >
+                    Add new group
+                </Button>
                 {groups}
             </Fragment>
         ) : (
