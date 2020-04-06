@@ -40,7 +40,7 @@ function PostToTopic(props) {
             setLoading(false);
 
             if (response.status === 200) {
-                history.push("/topic/" + id);
+                history.push("/topics/" + id);
             }
         }
     }, [response]);
