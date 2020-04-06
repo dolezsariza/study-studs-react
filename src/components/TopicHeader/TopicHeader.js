@@ -8,8 +8,7 @@ export default function TopicHeader(props) {
     const [raised, setRaised] = useState(false);
 
     const toTopic = e => {
-        console.log(e.currentTarget);
-        history.push("/topic/" + props.id);
+        history.push("/topics/" + props.id);
     };
 
     return (

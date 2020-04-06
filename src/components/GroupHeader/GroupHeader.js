@@ -8,9 +8,7 @@ export default function GroupHeader(props) {
     const [raised, setRaised] = useState(false);
 
     const toGroup = e => {
-        console.log(e.currentTarget);
-        //props.history.push("/group/" + props.id);
-        history.push("/group/" + props.id);
+        history.push("/groups/" + props.id);
     };
 
     return (
