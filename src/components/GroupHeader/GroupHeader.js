@@ -10,7 +10,6 @@ export default function GroupHeader(props) {
     const toGroup = e => {
         history.push("/groups/" + props.id);
     };
-
     return (
         <Card
             raised={raised}
@@ -30,7 +29,7 @@ export default function GroupHeader(props) {
                     <Link
                         onClick={e => {
                             e.stopPropagation();
-                            props.history.push("/profile/" + props.ownerName);
+                            history.push("/profile/" + props.ownerName);
                         }}
                         color="secondary"
                         className="username-link"
