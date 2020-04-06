@@ -13,7 +13,7 @@ export default function FileUpload() {
         data.append("file", file);
         data.append("TopicId", id);
         axios.post("/files", data).then(res => {
-            if (res.status === 201) history.push("/topic/" + id);
+            if (res.status === 201) history.push("/topics/" + id);
             else history.push("/500");
         });
     };
