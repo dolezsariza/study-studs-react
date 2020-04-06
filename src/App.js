@@ -20,6 +20,7 @@ import { Router } from "react-router";
 import { basic } from "./themes/themes";
 import Profile from "./pages/Profile/Profile";
 import Editprofile from "./pages/EditProfile/Editprofile";
+import FileUpload from "./pages/Upload/FileUpload";
 import UserProvider, { UserContext } from "./context/UserContext";
 import { setup } from "./axios/axios";
 
@@ -44,6 +45,12 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
+                        <Route
+                            path="/topic/:id/fileupload"
+                            exact
+                            component={FileUpload}
+                        />
+                        <Route path="/topic/:id/files" exact />
                         <Route path="/groups" component={GroupWithTopics} />
                         <Route path="/topic/:id/post" component={PostToTopic} />
                         <Route path="/topic/:id" component={Topic} />
