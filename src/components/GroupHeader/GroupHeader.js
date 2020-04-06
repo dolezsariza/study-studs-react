@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Card, Link, Box } from "@material-ui/core";
 import "./GroupHeader.css";
 import Date from "../Date/Date";
+import history from "../../history";
 
 export default function GroupHeader(props) {
     const [raised, setRaised] = useState(false);
 
     const toGroup = e => {
         console.log(e.currentTarget);
-        props.history.push("/group/" + props.id);
+        //props.history.push("/group/" + props.id);
+        history.push("/group/" + props.id);
     };
 
     return (
