@@ -47,7 +47,7 @@ function Topic(props) {
                             variant="contained"
                             color="primary"
                             onClick={() => {
-                                history.push("/topic/" + id + "/files");
+                                history.push("/topics/" + id + "/files");
                             }}
                         >
                             Files
@@ -57,7 +57,7 @@ function Topic(props) {
                             variant="contained"
                             color="primary"
                             onClick={() => {
-                                history.push("/topic/" + id + "/fileupload");
+                                history.push("/topics/" + id + "/fileupload");
                             }}
                         >
                             Upload File
@@ -67,7 +67,7 @@ function Topic(props) {
                             color="primary"
                             variant="contained"
                             onClick={() => {
-                                history.push("/topic/" + id + "/post");
+                                history.push("/topics/" + id + "/post");
                             }}
                         >
                             Add Post
