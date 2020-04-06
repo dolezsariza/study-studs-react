@@ -2,10 +2,13 @@ import React, { useState, Fragment, useEffect } from "react";
 import { Box, TextField, Button } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 import { connect } from "react-redux";
 import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
 import { postData, removeData } from "../../store/actions/repositoryActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
+import axios from "../../axios/axios";
 
 function TopicToGroup(props) {
     let { id } = useParams();
@@ -13,21 +16,30 @@ function TopicToGroup(props) {
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState("");
+    const [user, setUser] = useContext(UserContext);
+    const [response, setResponse] = useState(null);
 
     const tryTopic = () => {
         if (id) {
             const url = "groups/" + id;
             setLoading(true);
             if (title.length > 0 && description.length > 0) {
-                props.onGroupData(
-                    url,
-                    {
-                        ownerId: props.userId,
+                // props.onGroupData(
+                //     url,
+                //     {
+                //         ownerId: props.userId,
+                //         title: title,
+                //         description: description
+                //     },
+                //     props
+                // );
+                axios
+                    .post(url, {
+                        ownerId: user.userId,
                         title: title,
                         description: description
-                    },
-                    props
-                );
+                    })
+                    .then(resp => setResponse(resp));
             } else {
                 setLoading(false);
             }
