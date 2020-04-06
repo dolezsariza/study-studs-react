@@ -28,17 +28,23 @@ function Group(props) {
             <Box className="group-info">
                 <Box className="row">
                     <h2 className="group-title">{data.title}</h2>
+                </Box>
                     <div className="group-username">
-                        <Link
+                        by <Link
                             color="secondary"
                             href={"/profile/" + data.ownerName}
                         >
                             {data.ownerName}
                         </Link>
                     </div>
-                </Box>
                 <Box className="row">
                     <p className="group-message">{data.description}</p>
+                
+                {data.date ? (
+                        <Date className="topic-date">{data.date}</Date>
+                    ) : (
+                        <Fragment />
+                    )}
                 </Box>
                 <Box className="row">
                     <Box className="group-actions">
@@ -46,21 +52,18 @@ function Group(props) {
                             color="primary"
                             variant="contained"
                             onClick={() => {
-                                history.push("/group/" + id + "/topic");
+                                history.push("/groups/" + id + "/topic");
                             }}
                         >
                             Create new topic in group
                         </Button>
                     </Box>
-                    {data.date ? (
-                        <Date className="topic-date">{data.date}</Date>
-                    ) : (
-                        <Fragment />
-                    )}
+                    
                 </Box>
             </Box>
+            <br></br>
             <Box className="topics">
-                <Topics topics={topics}></Topics>
+                <Topics topics={topics} groupId={id}></Topics>
             </Box>
         </Box>
     );
