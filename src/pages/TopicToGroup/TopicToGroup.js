@@ -5,10 +5,11 @@ import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { connect } from "react-redux";
-import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
-import { postData, removeData } from "../../store/actions/repositoryActions";
+//import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
+//import { postData, removeData } from "../../store/actions/repositoryActions";
 import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import axios from "../../axios/axios";
+import history from "../../history";
 
 function TopicToGroup(props) {
     let { id } = useParams();
@@ -24,18 +25,10 @@ function TopicToGroup(props) {
             const url = "groups/" + id;
             setLoading(true);
             if (title.length > 0 && description.length > 0) {
-                // props.onGroupData(
-                //     url,
-                //     {
-                //         ownerId: props.userId,
-                //         title: title,
-                //         description: description
-                //     },
-                //     props
-                // );
                 axios
                     .post(url, {
                         ownerId: user.userId,
+                        ownerName: user.userName,
                         title: title,
                         description: description
                     })
@@ -47,22 +40,22 @@ function TopicToGroup(props) {
     };
 
     useEffect(() => {
-        if (props.response) {
+        if (response) {
             setLoading(false);
 
-            if (props.response.status === 200) {
-                props.history.push("/group/" + id);
+            if (response.status === 200) {
+                history.push("/groups/" + id);
             }
         }
-    }, [props.response]);
+    }, [response]);
 
-    useEffect(() => {
-        return () => {
-            props.onRemoveData();
-        };
-    }, []);
+    // useEffect(() => {
+    //     return () => {
+    //         props.onRemoveData();
+    //     };
+    // }, []);
 
-    if (props.userId == "" || props.userId == null) {
+    if (user.userId == "" || user.userId == null) {
         return (
             <div className="page-container">
                 <h4>You need to be logged in to add topics!</h4>
@@ -72,7 +65,7 @@ function TopicToGroup(props) {
 
     return (
         <Fragment>
-            {props.error ? (
+            {/* {props.error ? (
                 <InfoBox showError={true} errorMessage={props.error} />
             ) : (
                 <Fragment />
@@ -86,7 +79,7 @@ function TopicToGroup(props) {
                 />
             ) : (
                 <Fragment />
-            )}
+            )} */}
             <h3>Add new topic to group</h3>
             <div className="page-container">
                 <form
