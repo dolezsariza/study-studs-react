@@ -9,6 +9,8 @@ import history from "../../history";
 
 function Topic(props) {
     const [data, setData] = useState(null);
+    const groupName = props.location.state.groupName;
+    const groupId = props.location.state.groupId;
 
     const posts = data ? data.posts : null;
     if (posts) posts.reverse();
@@ -26,6 +28,15 @@ function Topic(props) {
 
     return (
         <Box className="topic">
+        <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+                history.push("/groups/" + groupId);
+            }}
+        >
+            Back to {groupName}
+        </Button>
             <Box className="topic-info">
                 <Box className="row">
                     <h2 className="topic-title">{data.title}</h2>

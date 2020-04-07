@@ -13,6 +13,7 @@ export default function Topics(props) {
                 date={topic.date}
                 ownerName={topic.ownerName}
                 groupId = {topic.groupId}
+                groupName = {props.groupName}
             />
         ));
     } else return null;
