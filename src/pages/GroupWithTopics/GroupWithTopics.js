@@ -1,28 +1,35 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, Fragment, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Button, Link } from "@material-ui/core";
 import Topics from "../../components/Topics/Topics";
 import axios from "../../axios/axios";
 import history from "../../history";
 import Date from "../../components/Date/Date";
+import {GroupContext} from "../../context/GroupContext";
 
 function Group(props) {
+    
     const [data, setData] = useState(null);
-
+    
     const topics = data ? data.topics : null;
     if (topics) topics.reverse();
-
+    
     const { id } = useParams();
+    const[group, setGroup] = useContext(GroupContext);
 
     useEffect(() => {
         const url = "/groups/" + id;
-        axios.get(url).then(resp => setData(resp.data));
-    }, []);
+        axios.get(url).then(resp => {
+            setData(resp.data);
+            setGroup({groupName: resp.data.title, groupId:id})
+        })
 
+    }, []);
+    
     if (!data) {
         return null;
     }
-
+    
     return (
         <Box className="group">
             <Box className="group-info">
