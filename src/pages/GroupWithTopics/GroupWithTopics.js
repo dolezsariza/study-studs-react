@@ -63,7 +63,7 @@ function Group(props) {
             </Box>
             <br></br>
             <Box className="topics">
-                <Topics topics={topics} groupId={id} groupName={data.title}></Topics>
+                <Topics topics={topics}></Topics>
             </Box>
         </Box>
     );

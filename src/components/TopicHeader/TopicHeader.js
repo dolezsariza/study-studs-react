@@ -7,11 +7,7 @@ import history from "../../history";
 export default function TopicHeader(props) {
     const [raised, setRaised] = useState(false);
     const toTopic = e => {
-        history.push({
-            pathname: '/topics/' + props.id,
-            state: { groupName: props.groupName,
-                     groupId: props.groupId }
-          })
+        history.push('/topics/' + props.id)
     };
 
     return (
