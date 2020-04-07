@@ -47,7 +47,7 @@ function Topic(props) {
                             variant="contained"
                             color="primary"
                             onClick={() => {
-                                history.push("/topic/" + id + "/files");
+                                history.push("/topic/" + id + "/allfile");
                             }}
                         >
                             Files
