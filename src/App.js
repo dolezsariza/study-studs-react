@@ -22,6 +22,7 @@ import Editprofile from "./pages/EditProfile/Editprofile";
 import FileUpload from "./pages/Upload/FileUpload";
 import UserProvider, { UserContext } from "./context/UserContext";
 import { setup } from "./axios/axios";
+import FilesPage from "./pages/Files/FilesPage";
 
 function App(props) {
     return (
@@ -49,7 +50,11 @@ function Content() {
                             exact
                             component={FileUpload}
                         />
-                        <Route path="/topic/:id/files" exact />
+                        <Route
+                            path="/topic/:id/allfile"
+                            exact
+                            component={FilesPage}
+                        />
                         <Route path="/topic/:id/post" component={PostToTopic} />
                         <Route path="/topic/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
