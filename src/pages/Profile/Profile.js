@@ -1,15 +1,17 @@
 import "./Profile.css";
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useContext } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import Datagrid from "./DataGrid";
 import { Button } from "@material-ui/core";
 import { useState } from "react";
 import axios from "../../axios/axios";
+import { UserContext } from "../../context/UserContext";
 
 function Profile(props) {
     const { username } = useParams();
     const url = `/profile/${username}`;
     const [data, setData] = useState(null);
+    const [user, SetUser] = useContext(UserContext);
 
     useEffect(() => {
         axios.get(url).then(resp => setData(resp.data));
@@ -30,10 +32,13 @@ function Profile(props) {
             </div>
         );
     }
+    
     return (
         <Fragment>
             {data ? <Datagrid data={data} /> : <Fragment />}
-            <div className="btn">
+            
+            {user.userName === username ? (
+                <div className="btn">
                 <NavLink to="/profile/edit" exact>
                     <Button
                         variant="contained"
@@ -44,6 +49,10 @@ function Profile(props) {
                     </Button>
                 </NavLink>
             </div>
+            ) : (
+                <div></div>
+            )}
+            
         </Fragment>
     );
 }
