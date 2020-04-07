@@ -24,14 +24,17 @@ import Profile from "./pages/Profile/Profile";
 import Editprofile from "./pages/EditProfile/Editprofile";
 import FileUpload from "./pages/Upload/FileUpload";
 import UserProvider, { UserContext } from "./context/UserContext";
+import GroupProvider, { GroupContext } from './context/GroupContext';
 import { setup } from "./axios/axios";
 
 function App(props) {
     return (
         <UserProvider>
-            <div className="App">
-                <Content />
-            </div>
+            <GroupProvider>
+                <div className="App">
+                    <Content />
+                </div>
+            </GroupProvider>
         </UserProvider>
     );
 }
@@ -39,6 +42,7 @@ function App(props) {
 function Content() {
     const userContext = useContext(UserContext);
     setup.setupInterceptors(userContext);
+
     return (
         <Router history={history}>
             <ThemeProvider theme={basic}>
