@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, Fragment, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
@@ -6,11 +6,14 @@ import { Box, Button, Link } from "@material-ui/core";
 import Date from "../../components/Date/Date";
 import axios from "../../axios/axios";
 import history from "../../history";
+import {GroupContext} from '../../context/GroupContext';
 
 function Topic(props) {
     const [data, setData] = useState(null);
-    const groupName = props.location.state.groupName;
-    const groupId = props.location.state.groupId;
+    const[group, setGroup] = useContext(GroupContext);
+
+    const groupName = group.groupName;
+    const groupId = group.groupId;
 
     const posts = data ? data.posts : null;
     if (posts) posts.reverse();
