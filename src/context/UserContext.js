@@ -4,7 +4,7 @@ import { loadState, saveState } from "../localStorage";
 export const UserContext = createContext();
 
 const UserProvider = props => {
-    const initialState = { userName: "", userId: "", loggedIn: false };
+    const initialState = { userName: "", userId: "", groups: [], loggedIn: false };
 
     const [state, setState] = useState(initialState);
 
