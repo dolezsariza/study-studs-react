@@ -31,6 +31,12 @@ function LeaveGroup(props) {
 
     useEffect(() => {
         if (response) {
+            setUser({
+                userName: user.userName,
+                userId: user.userId,
+                groups: Array.from(user.groups.filter(item => item !== parseInt(groupId))),
+                loggedIn: true
+            });
             setLoading(false);
             if (response.status === 200) {
                 history.push("/");
