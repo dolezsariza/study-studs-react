@@ -1,20 +1,33 @@
 import React from "react";
 import "./File.css";
 import { Card, Button } from "@material-ui/core";
-import axios from "../../axios/axios";
 import { saveAs } from "file-saver";
+import Axios from "axios";
+import axios from "../../axios/axios";
+import DeleteIcon from "@material-ui/icons/Delete";
+import history from "../../history";
 
 export default function File(props) {
     const download = () => {
-        axios.get(`files/${props.id}`).then(response => {
-            console.log(response);
-            const blob = new Blob([response.data], {
-                type: response.headers["content-type"]
-            });
-            saveAs(blob, props.title);
+        let instance = Axios.create({
+            baseURL: "http://localhost:5000",
+            responseType: "blob",
+        });
+        instance.get(`files/${props.id}`).then((response) => {
+            let url = window.URL.createObjectURL(new Blob([response.data]));
+            saveAs(url, props.title);
         });
     };
-    console.log(props);
+
+    const deleteFile = () => {
+        axios.delete(`/files/${props.id}`).then((resp) => {
+            if (resp.status !== 200) {
+                console.log("Something went wrong");
+            }
+            props.setDelete(true);
+        });
+    };
+
     return (
         <Card className="file">
             <h4 className="file-title">{props.title}</h4>
@@ -25,6 +38,15 @@ export default function File(props) {
                 onClick={download}
             >
                 Download
+            </Button>
+            <Button
+                id="fileDeleteBtn"
+                variant="contained"
+                color="secondary"
+                startIcon={<DeleteIcon />}
+                onClick={deleteFile}
+            >
+                Delete
             </Button>
         </Card>
     );

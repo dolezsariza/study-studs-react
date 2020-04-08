@@ -8,23 +8,24 @@ import Files from "../../components/Files/Files";
 export default function FilesPage() {
     const [data, setData] = useState(null);
     const { id } = useParams();
+    const [deleted, setDeleted] = useState(false);
 
     const files = data ? data : null;
 
     useEffect(() => {
         const url = `topics/${id}/files`;
-        axios.get(url).then(result => {
+        axios.get(url).then((result) => {
             if (result.status !== 200) {
                 return;
             }
             setData(result.data);
+            setDeleted(false);
         });
-    }, [id]);
+    }, [id, deleted]);
 
     if (!data) {
         return null;
     }
-    console.log(files);
     return (
         <Box className="files-container">
             <Box className="row">
@@ -34,7 +35,7 @@ export default function FilesPage() {
                 <FileActionButtons topicId={id} />
             </Box>
             <Box className="files">
-                <Files files={files} />
+                <Files files={files} setDelete={setDeleted} />
             </Box>
         </Box>
     );
