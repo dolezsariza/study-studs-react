@@ -9,10 +9,11 @@ import history from "../../history";
 function JoinGroup(props) {
     const groupName = props.location.state.groupName;
     const groupId = props.location.state.groupId;
-    
+
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useContext(UserContext);
     const [response, setResponse] = useState(null);
+    const userGroups = user.groups;
 
     const joinGroup = () => {
         const url = `groups/${groupId}/join`;
@@ -33,6 +34,13 @@ function JoinGroup(props) {
 
     useEffect(() => {
         if (response) {
+            userGroups.push(parseInt(groupId));
+            setUser({
+                userName: user.userName,
+                userId: user.userId,
+                groups: Array.from(userGroups),
+                loggedIn: true
+            });
             setLoading(false);
             if (response.status === 200) {
                 history.push("/");
