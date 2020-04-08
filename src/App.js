@@ -16,6 +16,7 @@ import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
 import GroupWithTopics from "./pages/GroupWithTopics/GroupWithTopics";
 import TopicToGroup from "./pages/TopicToGroup/TopicToGroup";
 import GroupToSite from "./pages/GroupToSite/GroupToSite";
+import JoinGroup from "./pages/JoinGroup/JoinGroup";
 import history from "./history";
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
@@ -24,7 +25,7 @@ import Profile from "./pages/Profile/Profile";
 import Editprofile from "./pages/EditProfile/Editprofile";
 import FileUpload from "./pages/Upload/FileUpload";
 import UserProvider, { UserContext } from "./context/UserContext";
-import GroupProvider, { GroupContext } from './context/GroupContext';
+import GroupProvider from './context/GroupContext';
 import { setup } from "./axios/axios";
 
 function App(props) {
@@ -60,6 +61,7 @@ function Content() {
                         <Route path="/topics/:id/files" exact />
                         <Route path="/groups/:id" exact component={GroupWithTopics} />
                         <Route path="/groups/:id/topic" component={TopicToGroup}/> 
+                        <Route path="/groups/:id/join" exact component={JoinGroup}/>
                         <Route path="/topics/:id/post" component={PostToTopic} />
                         <Route path="/topics/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
