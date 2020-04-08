@@ -10,14 +10,7 @@ export default function GroupHeader(props) {
     const toGroup = e => {
         history.push("/groups/" + props.id);
     };
-
-    const join = e => {
-        history.push({
-            pathname: "/groups/"+ props.id + "/join",
-            state: { groupName: props.title,
-                     groupId: props.id }
-          })
-    }
+ 
     return (
         
         <div>
@@ -51,14 +44,6 @@ export default function GroupHeader(props) {
                     <Date className="group-header-date">{props.date}</Date>
                 </Box>
             </Card>
-            <Button 
-                variant="contained"
-                onClick={join}
-                color="secondary"
-                className="login-btn"
-                type="submit">
-                    Join group
-            </Button>
         </div>
     );
 }
