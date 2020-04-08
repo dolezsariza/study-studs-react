@@ -5,7 +5,6 @@ import { saveAs } from "file-saver";
 import Axios from "axios";
 import axios from "../../axios/axios";
 import DeleteIcon from "@material-ui/icons/Delete";
-import history from "../../history";
 
 export default function File(props) {
     const download = () => {

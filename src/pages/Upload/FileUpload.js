@@ -21,9 +21,8 @@ export default function FileUpload() {
         data.append("file", file);
         data.append("TopicId", topicId);
         data.append("FileName", file.name);
-        axios.post("/files", data).then(res => {
-            if (res.status === 201)
-                history.push(`/topics/${topicId}/allfile`;
+        axios.post("/files", data).then((res) => {
+            if (res.status === 201) history.push(`/topics/${topicId}/allfile`);
             else history.push("/500");
         });
     };
@@ -82,7 +81,7 @@ export default function FileUpload() {
                             id="backToTopicBtn"
                             color="secondary"
                             variant="contained"
-                            onClick={() => history.push(`/topic/${topicId}`)}
+                            onClick={() => history.push(`/topics/${topicId}`)}
                         >
                             Back to topic
                         </Button>

@@ -11,7 +11,7 @@ export default function FileActionButtons(props) {
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                    history.push(`/topic/${props.topicId}/fileupload`);
+                    history.push(`/topics/${props.topicId}/fileupload`);
                 }}
             >
                 Upload File
@@ -21,7 +21,7 @@ export default function FileActionButtons(props) {
                 variant="contained"
                 color="secondary"
                 onClick={() => {
-                    history.push(`/topic/${props.topicId}`);
+                    history.push(`/topics/${props.topicId}`);
                 }}
             >
                 Back to topic

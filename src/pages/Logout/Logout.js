@@ -9,7 +9,7 @@ function Logout(props) {
     const [response, setResponse] = useState("");
     const [user, setUser] = useContext(UserContext);
     useEffect(() => {
-        axios.post(url).then(resp => setResponse(resp));
+        axios.post(url).then((resp) => setResponse(resp));
     }, []);
 
     useEffect(() => {
@@ -21,9 +21,7 @@ function Logout(props) {
                 history.push("/");
             }
         }
-    }, [response]);
-
-    console.log(response);
+    }, [response, setUser]);
 
     return null;
 }
