@@ -17,6 +17,7 @@ import GroupWithTopics from "./pages/GroupWithTopics/GroupWithTopics";
 import TopicToGroup from "./pages/TopicToGroup/TopicToGroup";
 import GroupToSite from "./pages/GroupToSite/GroupToSite";
 import JoinGroup from "./pages/JoinGroup/JoinGroup";
+import LeaveGroup from "./pages/LeaveGroup/LeaveGroup";
 import history from "./history";
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
@@ -62,6 +63,7 @@ function Content() {
                         <Route path="/groups/:id" exact component={GroupWithTopics} />
                         <Route path="/groups/:id/topic" component={TopicToGroup}/> 
                         <Route path="/groups/:id/join" exact component={JoinGroup}/>
+                        <Route path="/groups/:id/leave" exact component={LeaveGroup}/>
                         <Route path="/topics/:id/post" component={PostToTopic} />
                         <Route path="/topics/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
