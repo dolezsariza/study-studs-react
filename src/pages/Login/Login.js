@@ -22,23 +22,22 @@ function Login(props) {
         axios
             .post("/login", {
                 Username: userName,
-                Password: password
+                Password: password,
             })
-            .then(response => {
+            .then((response) => {
                 if (response) {
                     if (response.status === 200) {
                         console.log("Logged in! ");
-                        console.log(response);
                         setUser({
                             userName: response.data[1],
                             userId: response.data[0],
-                            loggedIn: true
+                            loggedIn: true,
                         });
                         history.push("/");
                     }
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
                 setError(error.response.data);
             })
@@ -60,7 +59,7 @@ function Login(props) {
             />
             <div
                 className="page-container"
-                onClick={e => {
+                onClick={(e) => {
                     if (e.target.id !== "password-input") setOnPassword(false);
                 }}
             >
@@ -81,7 +80,7 @@ function Login(props) {
                             label="User Name"
                             autoComplete="current-username"
                             variant="outlined"
-                            onChange={e => {
+                            onChange={(e) => {
                                 setUserName(e.target.value);
                             }}
                         />
@@ -95,7 +94,7 @@ function Login(props) {
                             type="password"
                             autoComplete="current-password"
                             variant="outlined"
-                            onChange={e => {
+                            onChange={(e) => {
                                 setPassword(e.target.value);
                             }}
                         />
