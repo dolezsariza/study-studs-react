@@ -6,10 +6,12 @@ import axios from "../../axios/axios";
 import history from "../../history";
 import Date from "../../components/Date/Date";
 import {GroupContext} from "../../context/GroupContext";
+import {UserContext} from "../../context/UserContext";
 
 function Group(props) {
     
     const [data, setData] = useState(null);
+    const [user, setUser] = useContext(UserContext);
     
     const topics = data ? data.topics : null;
     if (topics) topics.reverse();
@@ -17,11 +19,27 @@ function Group(props) {
     const { id } = useParams();
     const[group, setGroup] = useContext(GroupContext);
 
+    const join = e => {
+        history.push({
+            pathname: "/groups/"+ props.id + "/join",
+            state: { groupName: props.title,
+                     groupId: props.id }
+          })
+    }
+
+    const leave = e => {
+        history.push({
+            pathname: "/groups/"+ props.id + "/leave",
+            state: { groupName: props.title,
+                     groupId: props.id }
+          })
+    }
+
     useEffect(() => {
         const url = "/groups/" + id;
         axios.get(url).then(resp => {
             setData(resp.data);
-            setGroup({groupName: resp.data.title, groupId:id})
+            setGroup({groupName: resp.data.title, groupId:id, hasUser: user.userName == resp.data.ownerName})
         })
 
     }, []);
@@ -53,24 +71,48 @@ function Group(props) {
                         <Fragment />
                     )}
                 </Box>
-                <Box className="row">
-                    <Box className="group-actions">
-                        <Button
-                            color="primary"
-                            variant="contained"
-                            onClick={() => {
-                                history.push("/groups/" + id + "/topic");
-                            }}
-                        >
-                            Create new topic in group
-                        </Button>
-                    </Box>
-                    
-                </Box>
-            </Box>
-            <br></br>
-            <Box className="topics">
-                <Topics topics={topics}></Topics>
+                
+                {group.hasUser ? (
+                    <div>
+                        <Box className="row">
+                            <Box className="group-actions">
+                                <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={() => {
+                                        history.push("/groups/" + id + "/topic");
+                                    }}>
+                                
+                                    Create new topic in group
+                                </Button>
+                            </Box>
+                            <Button 
+                                variant="contained"
+                                onClick={leave}
+                                color="secondary"
+                                className="login-btn"
+                                type="submit">
+                                    Leave group
+                            </Button>
+                        </Box>
+                        <Box>
+                            <Box className="topics">
+                                <Topics topics={topics}></Topics>
+                            </Box>
+                        </Box>
+                    </div>
+                ) : (
+                    <Button 
+                        variant="contained"
+                        onClick={join}
+                        color="secondary"
+                        className="login-btn"
+                        type="submit">
+                            Join group
+                    </Button>
+                )
+                }
+                
             </Box>
         </Box>
     );
