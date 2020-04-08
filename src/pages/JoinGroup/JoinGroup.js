@@ -7,7 +7,6 @@ import axios from "../../axios/axios";
 import history from "../../history";
 
 function JoinGroup(props) {
-    console.log(props);
     const groupName = props.location.state.groupName;
     const groupId = props.location.state.groupId;
     
@@ -35,7 +34,7 @@ function JoinGroup(props) {
     useEffect(() => {
         if (response) {
             setLoading(false);
-            if (response.status === 201) {
+            if (response.status === 200) {
                 history.push("/");
             }
         }
