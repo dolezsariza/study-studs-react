@@ -16,9 +16,11 @@ function Login(props) {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useContext(UserContext);
+    
 
     const tryLogin = () => {
         setLoading(true);
+
         axios
             .post("/login", {
                 Username: userName,
@@ -29,11 +31,21 @@ function Login(props) {
                     if (response.status === 200) {
                         console.log("Logged in! ");
                         console.log(response);
-                        setUser({
-                            userName: response.data[1],
-                            userId: response.data[0],
-                            loggedIn: true
-                        });
+                        var userGroups = [];
+                        axios.get(`/groups/${response.data[0]}/groupusers`)
+                        .then(resp => {
+                            
+                            for (let data of resp.data) {
+                                userGroups.push(data.groupId)
+                            }
+
+                            setUser({
+                                userName: response.data[1],
+                                userId: response.data[0],
+                                groups: Array.from(userGroups),
+                                loggedIn: true
+                            });
+                        })
                         history.push("/");
                     }
                 }
