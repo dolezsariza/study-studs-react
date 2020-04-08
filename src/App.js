@@ -28,6 +28,7 @@ import FileUpload from "./pages/Upload/FileUpload";
 import UserProvider, { UserContext } from "./context/UserContext";
 import GroupProvider from './context/GroupContext';
 import { setup } from "./axios/axios";
+import FilesPage from "./pages/Files/FilesPage";
 
 function App(props) {
     return (
@@ -53,18 +54,32 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        <Route path="/groups" exact component={GroupToSite}/>
+                        <Route path="/groups" exact component={GroupToSite} />
                         <Route
                             path="/topics/:id/fileupload"
                             exact
                             component={FileUpload}
                         />
-                        <Route path="/topics/:id/files" exact />
-                        <Route path="/groups/:id" exact component={GroupWithTopics} />
-                        <Route path="/groups/:id/topic" component={TopicToGroup}/> 
+                        <Route
+                            path="/topics/:id/allfile"
+                            exact
+                            component={FilesPage}
+                        />
+                        <Route
+                            path="/groups/:id"
+                            exact
+                            component={GroupWithTopics}
+                        />
+                        <Route
+                            path="/groups/:id/topic"
+                            component={TopicToGroup}
+                        />
+                        <Route
+                            path="/topics/:id/post"
+                            component={PostToTopic}
+                        />
                         <Route path="/groups/:id/join" exact component={JoinGroup}/>
                         <Route path="/groups/:id/leave" exact component={LeaveGroup}/>
-                        <Route path="/topics/:id/post" component={PostToTopic} />
                         <Route path="/topics/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />

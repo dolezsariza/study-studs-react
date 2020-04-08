@@ -1,7 +1,6 @@
 import React from "react";
 import Post from "../Post/Post";
 
-
 export default function Posts(props) {
     if (props.posts) {
         return props.posts.map(post => (

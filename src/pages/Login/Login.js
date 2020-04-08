@@ -26,7 +26,7 @@ function Login(props) {
                 Username: userName,
                 Password: password
             })
-            .then(response => {
+            .then((response) => {
                 if (response) {
                     if (response.status === 200) {
                         console.log("Logged in! ");
@@ -50,7 +50,7 @@ function Login(props) {
                     }
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
                 setError(error.response.data);
             })
@@ -72,7 +72,7 @@ function Login(props) {
             />
             <div
                 className="page-container"
-                onClick={e => {
+                onClick={(e) => {
                     if (e.target.id !== "password-input") setOnPassword(false);
                 }}
             >
@@ -93,7 +93,7 @@ function Login(props) {
                             label="User Name"
                             autoComplete="current-username"
                             variant="outlined"
-                            onChange={e => {
+                            onChange={(e) => {
                                 setUserName(e.target.value);
                             }}
                         />
@@ -107,7 +107,7 @@ function Login(props) {
                             type="password"
                             autoComplete="current-password"
                             variant="outlined"
-                            onChange={e => {
+                            onChange={(e) => {
                                 setPassword(e.target.value);
                             }}
                         />
