@@ -29,7 +29,7 @@ function Home(props) {
     }, []);
 
     if (groups) groups.reverse();
-
+    console.log(user);
     return user ? (
         user.loggedIn ? (
             <Fragment>
