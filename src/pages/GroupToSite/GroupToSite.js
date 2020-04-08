@@ -1,46 +1,40 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Box, TextField, Button } from "@material-ui/core";
-import { useParams } from "react-router-dom";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
-import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import axios from "../../axios/axios";
 import history from "../../history";
 
-function PostToTopic(props) {
-    let { id } = useParams();
+function GroupToSite(props) {
     const [title, setTitle] = useState("");
-    const [message, setMessage] = useState("");
+    const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState("");
     const [user, setUser] = useContext(UserContext);
     const [response, setResponse] = useState(null);
 
-    const tryPost = () => {
-        if (id) {
-            const url = "topics/" + id;
-            setLoading(true);
-            if (title.length > 0 && message.length > 0) {
-                axios
-                    .post(url, {
-                        ownerId: user.userId,
-                        title: title,
-                        message: message
-                    })
-                    .then(resp => setResponse(resp));
-            } else {
-                setLoading(false);
-            }
+    const tryGroup = () => {
+        const url = "groups";
+        setLoading(true);
+        if (title.length > 0 && description.length > 0) {
+            axios
+                .post(url, {
+                    ownerId: user.userId,
+                    ownerName: user.userName,
+                    title: title,
+                    description: description
+                })
+                .then(resp => setResponse(resp));
+        } else {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         if (response) {
             setLoading(false);
-
-            if (response.status === 200) {
-                history.push("/topics/" + id);
+            if (response.status === 201) {
+                history.push("/");
             }
         }
     }, [response]);
@@ -48,14 +42,14 @@ function PostToTopic(props) {
     if (user.userId == "" || user.userId == null) {
         return (
             <div className="page-container">
-                <h4>You need to be logged in to post!</h4>
+                <h4>You need to be logged in to add topics!</h4>
             </div>
         );
     }
 
     return (
         <Fragment>
-            <h3>Post to topic</h3>
+            <h3>Add new group</h3>
             <div className="page-container">
                 <form
                     autoComplete="off"
@@ -82,14 +76,14 @@ function PostToTopic(props) {
                         <TextField
                             className="textfield"
                             required
-                            label="Message"
+                            label="Decription"
                             autoComplete="off"
                             variant="outlined"
                             onChange={e => {
-                                setMessage(e.target.value);
+                                setDescription(e.target.value);
                             }}
                             onFocus={e => {
-                                setMessage(e.target.value);
+                                setDescription(e.target.value);
                             }}
                             multiline
                             rows="4"
@@ -104,9 +98,9 @@ function PostToTopic(props) {
                                 color="primary"
                                 className="login-btn"
                                 type="submit"
-                                onClick={tryPost}
+                                onClick={tryGroup}
                             >
-                                Post
+                                Add Group
                             </Button>
                         )}
                     </Box>
@@ -116,4 +110,4 @@ function PostToTopic(props) {
     );
 }
 
-export default PostToTopic;
+export default GroupToSite;

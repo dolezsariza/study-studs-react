@@ -1,38 +1,50 @@
 import React, { useEffect, Fragment, useState, useContext } from "react";
 import axios from "../../axios/axios";
-import TopicHeader from "../../components/TopicHeader/TopicHeader";
+import GroupHeader from "../../components/GroupHeader/GroupHeader";
 import { UserContext } from "../../context/UserContext";
+import { Box, Button, Link } from "@material-ui/core";
+import history from "../../history";
 
 function Home(props) {
     const [user, setUser] = useContext(UserContext);
-    const [topics, setTopics] = useState(null);
+    const [groups, setGroups] = useState(null);
 
     useEffect(() => {
-        const url = "/topics";
+        const url = "/groups";
         axios.get(url).then(resp => {
-            const newTopics = resp.data
-                ? resp.data.map(topic => (
-                      <TopicHeader
-                          key={topic.id}
-                          id={topic.id}
-                          ownerName={topic.ownerName}
-                          title={topic.title}
-                          description={topic.description}
-                          date={topic.date}
-                      />
-                  ))
-                : null;
-            setTopics(newTopics);
+            const newGroups = resp.data 
+            ? resp.data.map(group => (
+                <GroupHeader
+                    key={group.id}
+                    id={group.id}
+                    ownerName={group.ownerName}
+                    title={group.title}
+                    description={group.description}
+                    date={group.date}
+                />
+            ))
+            : null;
+            setGroups(newGroups);
         });
     }, []);
 
-    if (topics) topics.reverse();
+    if (groups) groups.reverse();
 
     return user ? (
         user.loggedIn ? (
             <Fragment>
-                <h2>Topics</h2>
-                {topics}
+                <h2>Groups</h2>
+                <Button
+                    id="siteAddGroupBtn"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => {
+                        history.push("/groups");
+                    }}
+                >
+                    Add new group
+                </Button>
+                {groups}
             </Fragment>
         ) : (
             <Fragment>
@@ -41,15 +53,16 @@ function Home(props) {
                     <h4>About us</h4>
                     <p>
                         This is a social site, where students can share notes
-                        and comments between each other. You cant post on
-                        different topics you are interested in.
+                        and comments between each other. You can post on
+                        different topics you are interested in. You can join
+                        groups, and make friends.
                     </p>
                 </section>
                 <section>
                     <h4>How to use it?</h4>
                     <p>
                         First you need to register an account, and login. You
-                        can then post to the topics of your choice.
+                        can then join groups and post to topics.
                     </p>
                 </section>
             </Fragment>

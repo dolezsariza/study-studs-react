@@ -2,31 +2,35 @@ import React, { useState, Fragment, useEffect } from "react";
 import { Box, TextField, Button } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
-import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import { connect } from "react-redux";
+//import { closeErrorInfo } from "../../store/actions/errorHandlerActions";
+//import { postData, removeData } from "../../store/actions/repositoryActions";
+import InfoBox from "../../components/InfoBoxes/InfoBox/InfoBox";
 import axios from "../../axios/axios";
 import history from "../../history";
 
-function PostToTopic(props) {
+function TopicToGroup(props) {
     let { id } = useParams();
     const [title, setTitle] = useState("");
-    const [message, setMessage] = useState("");
+    const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState("");
     const [user, setUser] = useContext(UserContext);
     const [response, setResponse] = useState(null);
 
-    const tryPost = () => {
+    const tryTopic = () => {
         if (id) {
-            const url = "topics/" + id;
+            const url = "groups/" + id;
             setLoading(true);
-            if (title.length > 0 && message.length > 0) {
+            if (title.length > 0 && description.length > 0) {
                 axios
                     .post(url, {
                         ownerId: user.userId,
+                        ownerName: user.userName,
                         title: title,
-                        message: message
+                        description: description
                     })
                     .then(resp => setResponse(resp));
             } else {
@@ -40,22 +44,43 @@ function PostToTopic(props) {
             setLoading(false);
 
             if (response.status === 200) {
-                history.push("/topics/" + id);
+                history.push("/groups/" + id);
             }
         }
     }, [response]);
 
+    // useEffect(() => {
+    //     return () => {
+    //         props.onRemoveData();
+    //     };
+    // }, []);
+
     if (user.userId == "" || user.userId == null) {
         return (
             <div className="page-container">
-                <h4>You need to be logged in to post!</h4>
+                <h4>You need to be logged in to add topics!</h4>
             </div>
         );
     }
 
     return (
         <Fragment>
-            <h3>Post to topic</h3>
+            {/* {props.error ? (
+                <InfoBox showError={true} errorMessage={props.error} />
+            ) : (
+                <Fragment />
+            )}
+            {success ? (
+                <InfoBox
+                    showSuccess={true}
+                    onClose={() => {
+                        setSuccess(false);
+                    }}
+                />
+            ) : (
+                <Fragment />
+            )} */}
+            <h3>Add new topic to group</h3>
             <div className="page-container">
                 <form
                     autoComplete="off"
@@ -82,14 +107,14 @@ function PostToTopic(props) {
                         <TextField
                             className="textfield"
                             required
-                            label="Message"
+                            label="Decription"
                             autoComplete="off"
                             variant="outlined"
                             onChange={e => {
-                                setMessage(e.target.value);
+                                setDescription(e.target.value);
                             }}
                             onFocus={e => {
-                                setMessage(e.target.value);
+                                setDescription(e.target.value);
                             }}
                             multiline
                             rows="4"
@@ -104,9 +129,9 @@ function PostToTopic(props) {
                                 color="primary"
                                 className="login-btn"
                                 type="submit"
-                                onClick={tryPost}
+                                onClick={tryTopic}
                             >
-                                Post
+                                Add Topic
                             </Button>
                         )}
                     </Box>
@@ -116,4 +141,21 @@ function PostToTopic(props) {
     );
 }
 
-export default PostToTopic;
+// const mapStateToProps = state => {
+//     return {
+//         response: state.repository.response,
+//         error: state.errorHandler.errorMessage,
+//         userId: state.loggedIn.userId
+//     };
+// };
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         onPostData: (url, data, props) => dispatch(postData(url, data, props)),
+//         onCloseError: () => dispatch(closeErrorInfo()),
+//         onRemoveData: () => dispatch(removeData())
+//     };
+// };
+
+//export default connect(mapStateToProps, mapDispatchToProps)(TopicToGroup);
+export default TopicToGroup;

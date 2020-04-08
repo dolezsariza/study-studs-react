@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Card, Link, Box } from "@material-ui/core";
-import "./TopicHeader.css";
+import "./GroupHeader.css";
 import Date from "../Date/Date";
 import history from "../../history";
 
-export default function TopicHeader(props) {
+export default function GroupHeader(props) {
     const [raised, setRaised] = useState(false);
-    const toTopic = e => {
-        history.push('/topics/' + props.id)
-    };
 
+    const toGroup = e => {
+        history.push("/groups/" + props.id);
+    };
     return (
         <Card
             raised={raised}
-            className="topic-header"
-            onClick={toTopic}
+            className="group-header"
+            onClick={toGroup}
             onMouseOver={() => {
                 setRaised(true);
             }}
@@ -22,10 +22,10 @@ export default function TopicHeader(props) {
                 setRaised(false);
             }}
         >
-            <h4 className="topic-header-title">{props.title}</h4>
-            <p className="topic-header-message">{props.description}</p>
+            <h4 className="group-header-title">{props.title}</h4>
+            <p className="group-header-message">{props.description}</p>
             <Box className="row">
-                <div className="topic-header-username">
+                <div className="group-header-username">
                     <Link
                         onClick={e => {
                             e.stopPropagation();
@@ -37,7 +37,7 @@ export default function TopicHeader(props) {
                         {props.ownerName}
                     </Link>
                 </div>
-                <Date className="topic-header-date">{props.date}</Date>
+                <Date className="group-header-date">{props.date}</Date>
             </Box>
         </Card>
     );

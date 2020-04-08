@@ -13,6 +13,9 @@ import NoConnection from "./pages/errorPages/NoConnection/NoConnection";
 import InternalServer from "./pages/errorPages/InternalServer/InternalServer";
 import NotFound from "./pages/errorPages/NotFound/NotFound";
 import InfoBox from "./components/InfoBoxes/InfoBox/InfoBox";
+import GroupWithTopics from "./pages/GroupWithTopics/GroupWithTopics";
+import TopicToGroup from "./pages/TopicToGroup/TopicToGroup";
+import GroupToSite from "./pages/GroupToSite/GroupToSite";
 import history from "./history";
 import { Route, Switch } from "react-router-dom";
 import { Router } from "react-router";
@@ -21,15 +24,18 @@ import Profile from "./pages/Profile/Profile";
 import Editprofile from "./pages/EditProfile/Editprofile";
 import FileUpload from "./pages/Upload/FileUpload";
 import UserProvider, { UserContext } from "./context/UserContext";
+import GroupProvider, { GroupContext } from './context/GroupContext';
 import { setup } from "./axios/axios";
 import FilesPage from "./pages/Files/FilesPage";
 
 function App(props) {
     return (
         <UserProvider>
-            <div className="App">
-                <Content />
-            </div>
+            <GroupProvider>
+                <div className="App">
+                    <Content />
+                </div>
+            </GroupProvider>
         </UserProvider>
     );
 }
@@ -37,6 +43,7 @@ function App(props) {
 function Content() {
     const userContext = useContext(UserContext);
     setup.setupInterceptors(userContext);
+
     return (
         <Router history={history}>
             <ThemeProvider theme={basic}>
@@ -45,18 +52,17 @@ function Content() {
                     <InfoBox />
                     <Switch>
                         <Route path="/" exact component={Home} />
+                        <Route path="/groups" exact component={GroupToSite}/>
                         <Route
-                            path="/topic/:id/fileupload"
+                            path="/topics/:id/fileupload"
                             exact
                             component={FileUpload}
                         />
-                        <Route
-                            path="/topic/:id/allfile"
-                            exact
-                            component={FilesPage}
-                        />
-                        <Route path="/topic/:id/post" component={PostToTopic} />
-                        <Route path="/topic/:id" component={Topic} />
+                        <Route path="/topics/:id/allfiles" exact component={FilesPage}/>
+                        <Route path="/groups/:id" exact component={GroupWithTopics} />
+                        <Route path="/groups/:id/topic" component={TopicToGroup}/> 
+                        <Route path="/topics/:id/post" component={PostToTopic} />
+                        <Route path="/topics/:id" component={Topic} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/register" exact component={Register} />
                         <Route path="/logout" exact component={Logout} />

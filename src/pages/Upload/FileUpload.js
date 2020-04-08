@@ -21,9 +21,9 @@ export default function FileUpload() {
         data.append("file", file);
         data.append("TopicId", topicId);
         data.append("FileName", file.name);
-        axios.post("/files", data).then((res) => {
+        axios.post("/files", data).then(res => {
             if (res.status === 201)
-                history.push("/topic/" + topicId + "/allfile");
+                history.push(`/topics/${topicId}/allfile`;
             else history.push("/500");
         });
     };

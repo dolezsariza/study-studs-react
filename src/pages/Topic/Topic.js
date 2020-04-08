@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, Fragment, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import "./Topic.css";
 import Posts from "../../components/Posts/Posts";
@@ -6,9 +6,14 @@ import { Box, Button, Link } from "@material-ui/core";
 import Date from "../../components/Date/Date";
 import axios from "../../axios/axios";
 import history from "../../history";
+import {GroupContext} from '../../context/GroupContext';
 
 function Topic(props) {
     const [data, setData] = useState(null);
+    const[group, setGroup] = useContext(GroupContext);
+
+    const groupName = group.groupName;
+    const groupId = group.groupId;
 
     const posts = data ? data.posts : null;
     if (posts) posts.reverse();
@@ -26,6 +31,15 @@ function Topic(props) {
 
     return (
         <Box className="topic">
+        <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+                history.push("/groups/" + groupId);
+            }}
+        >
+            Back to {groupName}
+        </Button>
             <Box className="topic-info">
                 <Box className="row">
                     <h2 className="topic-title">{data.title}</h2>
@@ -47,7 +61,7 @@ function Topic(props) {
                             variant="contained"
                             color="primary"
                             onClick={() => {
-                                history.push("/topic/" + id + "/allfile");
+                                history.push("/topics/" + id + "/allfile");
                             }}
                         >
                             Files
@@ -57,7 +71,7 @@ function Topic(props) {
                             variant="contained"
                             color="primary"
                             onClick={() => {
-                                history.push("/topic/" + id + "/fileupload");
+                                history.push("/topics/" + id + "/fileupload");
                             }}
                         >
                             Upload File
@@ -67,7 +81,7 @@ function Topic(props) {
                             color="primary"
                             variant="contained"
                             onClick={() => {
-                                history.push("/topic/" + id + "/post");
+                                history.push("/topics/" + id + "/post");
                             }}
                         >
                             Add Post

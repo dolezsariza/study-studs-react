@@ -65,6 +65,7 @@ function Editprofile(props) {
 
     return (
         <Fragment>
+            <h1>Edit your profile, {user.userName}!</h1>
             <div className="page-container">
                 <form noValidate autoComplete="off">
                     <Grid
