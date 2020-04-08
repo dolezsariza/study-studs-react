@@ -12,6 +12,7 @@ function Group(props) {
     
     const [data, setData] = useState(null);
     const [user, setUser] = useContext(UserContext);
+    const userGroups = user.groups;
     
     const topics = data ? data.topics : null;
     if (topics) topics.reverse();
@@ -19,19 +20,30 @@ function Group(props) {
     const { id } = useParams();
     const[group, setGroup] = useContext(GroupContext);
 
+    const open = e => {
+        userGroups.push(parseInt(id));
+            setUser({
+                userName: user.userName,
+                userId: user.userId,
+                groups: Array.from(userGroups),
+                loggedIn: true
+            });
+        history.push("/");
+
+    }
     const join = e => {
         history.push({
-            pathname: "/groups/"+ props.id + "/join",
-            state: { groupName: props.title,
-                     groupId: props.id }
+            pathname: "/groups/"+ id + "/join",
+            state: { groupName: group.groupName,
+                     groupId: group.groupId }
           })
     }
 
     const leave = e => {
         history.push({
-            pathname: "/groups/"+ props.id + "/leave",
-            state: { groupName: props.title,
-                     groupId: props.id }
+            pathname: "/groups/"+ id + "/leave",
+            state: { groupName: group.groupName,
+                     groupId: group.groupId }
           })
     }
 
@@ -39,7 +51,7 @@ function Group(props) {
         const url = "/groups/" + id;
         axios.get(url).then(resp => {
             setData(resp.data);
-            setGroup({groupName: resp.data.title, groupId:id, hasUser: user.userName == resp.data.ownerName})
+            setGroup({groupName: resp.data.title, groupId:id, hasUser: user.groups.includes(parseInt(id))})
         })
 
     }, []);
@@ -86,14 +98,23 @@ function Group(props) {
                                     Create new topic in group
                                 </Button>
                             </Box>
-                            <Button 
-                                variant="contained"
-                                onClick={leave}
-                                color="secondary"
-                                className="login-btn"
-                                type="submit">
-                                    Leave group
-                            </Button>
+                            {data.ownerName == user.userName ?
+                            (
+                            <Button variant="contained"
+                            color="secondary"
+                            className="login-btn"
+                            type="submit">Future delete button</Button>
+                            ) : (
+                                    <Button 
+                                        variant="contained"
+                                        onClick={leave}
+                                        color="secondary"
+                                        className="login-btn"
+                                        type="submit">
+                                            Leave group
+                                    </Button>
+                                )}
+                            
                         </Box>
                         <Box>
                             <Box className="topics">
@@ -102,15 +123,30 @@ function Group(props) {
                         </Box>
                     </div>
                 ) : (
-                    <Button 
-                        variant="contained"
-                        onClick={join}
-                        color="secondary"
-                        className="login-btn"
-                        type="submit">
-                            Join group
-                    </Button>
-                )
+                    <Box>
+                        {data.ownerName == user.userName ? (
+                        <Button 
+                            variant="contained"
+                            onClick={open}
+                            color="secondary"
+                            className="login-btn"
+                            type="submit">
+                                Open group
+                        </Button>
+                        ) : (
+                            <Button 
+                                variant="contained"
+                                onClick={join}
+                                color="secondary"
+                                className="login-btn"
+                                type="submit">
+                                    Join group
+                            </Button>
+                        )}
+                        
+                    </Box>
+                        
+                ) 
                 }
                 
             </Box>
