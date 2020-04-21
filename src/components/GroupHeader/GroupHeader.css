@@ -1,0 +1,24 @@
+.group-header {
+    margin: 20px 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.group-header-title {
+    margin-bottom: 10px;
+}
+
+.group-header-message {
+    margin-bottom: 10px;
+}
+
+.group-header-username {
+    width: 30%;
+    text-align: left;
+}
+
+.group-header-date {
+    width: 70%;
+    text-align: right;
+    color: rgba(128, 128, 128, 0.404);
+}

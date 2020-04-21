@@ -1,0 +1,23 @@
+.post {
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.post-title {
+    margin-bottom: 10px;
+}
+
+.post-message {
+    margin-bottom: 10px;
+}
+
+.post-username {
+    width: 30%;
+    text-align: left;
+}
+
+.post-date {
+    width: 70%;
+    text-align: right;
+    color: rgba(128, 128, 128, 0.404);
+}

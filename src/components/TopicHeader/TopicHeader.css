@@ -1,0 +1,24 @@
+.topic-header {
+    margin: 20px 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.topic-header-title {
+    margin-bottom: 10px;
+}
+
+.topic-header-message {
+    margin-bottom: 10px;
+}
+
+.topic-header-username {
+    width: 30%;
+    text-align: left;
+}
+
+.topic-header-date {
+    width: 70%;
+    text-align: right;
+    color: rgba(128, 128, 128, 0.404);
+}
