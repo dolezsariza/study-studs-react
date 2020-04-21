@@ -10,4 +10,11 @@ Technologies used:
 -   [Material UI](https://material-ui.com/)
 -   [Axios](https://github.com/axios/axios)
 
+Contributors:
+
+- Ábel Hodász
+- Gyula Gergely Hódosi
+- Izabella Dolezsár
+- Máté Iszlai
+
 The application's backend API can be found [here](https://hodaszAbel@dev.azure.com/hodaszAbel/ASP%20.NET%20-%20React%20-%20Social%20Media/_git/study-stud-api) on Azure and [here](https://github.com/dolezsariza/study-studs-api) on GitHub.
